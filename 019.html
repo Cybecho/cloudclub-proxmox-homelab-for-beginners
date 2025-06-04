@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하드웨어 & 커뮤니티 참고자료</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+        .main-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .section-header {
+            background: linear-gradient(135deg, #00CED1 0%, #40E0D0 100%);
+            padding: 20px 30px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+        .section-header i {
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        .section-content {
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .category-section {
+            margin-bottom: 30px;
+            border-left: 4px solid #00CED1;
+            padding-left: 20px;
+        }
+        .category-section:last-child {
+            margin-bottom: 0;
+        }
+        .category-title {
+            color: #40E0D0;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .category-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .bg-hardware {
+            background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
+        }
+        .bg-youtube {
+            background: linear-gradient(135deg, #FF6B6B 0%, #EC4899 100%);
+        }
+        .bg-nas {
+            background: linear-gradient(135deg, #22C55E 0%, #10B981 100%);
+        }
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .link-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .link-item:hover {
+            background: rgba(0, 206, 209, 0.1);
+            border-color: rgba(0, 206, 209, 0.3);
+            transform: translateY(-2px);
+        }
+        .link-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .link-title {
+            color: #00CED1;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+        }
+        .link-title i {
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+        .link-desc {
+            color: #E0E0E0;
+            font-size: 0.75rem;
+            line-height: 1.3;
+        }
+        .country-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+        .tag-overseas {
+            background: rgba(255, 107, 107, 0.2);
+            color: #FF6B6B;
+        }
+        .tag-domestic {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22C55E;
+        }
+        .intro-text {
+            text-align: center;
+            color: #E0E0E0;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 206, 209, 0.2);
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-8" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h2 class="slide-title">하드웨어 & 커뮤니티 참고자료</h2>
+        
+        <div class="intro-text fade-in-up">
+            Proxmox 홈서버 구축을 위한 하드웨어 정보와 커뮤니티 자료
+        </div>
+        
+        <div class="main-container fade-in-up" style="animation-delay: 0.2s;">
+            <div class="section-header">
+                <i class="fas fa-link"></i>
+                참고 링크 모음
+            </div>
+            
+            <div class="section-content">
+                <!-- Hardware Sites & Forums -->
+                <div class="category-section">
+                    <div class="category-title">
+                        <div class="category-icon bg-hardware">
+                            <i class="fas fa-microchip text-white text-sm"></i>
+                        </div>
+                        하드웨어 사이트 & 포럼
+                    </div>
+                    <div class="link-grid">
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    Reddit r/HomeServer
+                                </div>
+                                <div class="link-desc">Proxmox 하드웨어 조합 실사용 사례</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    Level1Techs Forums
+                                </div>
+                                <div class="link-desc">서버용 CPU/메인보드 추천</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    서버포럼
+                                </div>
+                                <div class="link-desc">국내 대표 홈서버/NAS/IT 정보 커뮤니티</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    달소씨의 하루
+                                </div>
+                                <div class="link-desc">홈서버 구축/운영 노하우</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YouTube Channels -->
+                <div class="category-section">
+                    <div class="category-title">
+                        <div class="category-icon bg-youtube">
+                            <i class="fab fa-youtube text-white text-sm"></i>
+                        </div>
+                        유튜브 채널
+                    </div>
+                    <div class="link-grid">
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fab fa-youtube"></i>
+                                    Hardware Haven
+                                </div>
+                                <div class="link-desc">홈서버 하드웨어 리뷰, Proxmox 실전 구축</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fab fa-youtube"></i>
+                                    Jeff Geerling
+                                </div>
+                                <div class="link-desc">서버 하드웨어 리뷰, 가상화 환경 구축</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fab fa-youtube"></i>
+                                    Techno Tim
+                                </div>
+                                <div class="link-desc">홈랩 하드웨어, Proxmox/가상화 구축</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fab fa-youtube"></i>
+                                    NetworkChuck
+                                </div>
+                                <div class="link-desc">서버/네트워크 하드웨어, Proxmox 실습</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fab fa-youtube"></i>
+                                    베테우스
+                                </div>
+                                <div class="link-desc">국내 홈서버 하드웨어, Proxmox 실전</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fab fa-youtube"></i>
+                                    tinyrack
+                                </div>
+                                <div class="link-desc">저전력 서버, Proxmox 및 NAS 구축</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NAS Building -->
+                <div class="category-section">
+                    <div class="category-title">
+                        <div class="category-icon bg-nas">
+                            <i class="fas fa-hdd text-white text-sm"></i>
+                        </div>
+                        NAS 구축 및 경험기
+                    </div>
+                    <div class="link-grid">
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    자작 NAS 구축 가이드
+                                </div>
+                                <div class="link-desc">NAS 하드웨어 자작 및 구축 경험기</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    서버포럼 NAS 구축글
+                                </div>
+                                <div class="link-desc">NAS 관련 커뮤니티 경험 및 정보</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

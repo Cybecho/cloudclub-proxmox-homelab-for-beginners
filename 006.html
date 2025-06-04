@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-Width, initial-scale=1.0">
+    <title>요약하자면...</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .summary-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        .note-card {
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-left: 5px solid #FFD700;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+        .highlight {
+            color: #00CED1;
+            font-weight: 700;
+        }
+        .key-point {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        .key-point:last-child {
+            margin-bottom: 0;
+        }
+        .key-point i {
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            color: #00CED1;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-12" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h2 class="slide-title">요약하자면...</h2>
+        
+        <div class="summary-card p-8 mb-8">
+            <div class="flex items-center mb-6">
+                <div class="p-4 rounded-full mr-6" style="background-color: rgba(0, 206, 209, 0.2);">
+                    <i class="fas fa-server text-3xl" style="color: #00CED1;"></i>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Proxmox VE란?</h3>
+                    <p class="text-lg" style="color: #E0E0E0;">
+                        <span class="highlight">무료</span>이면서 
+                        <span class="highlight">사용하기 편리</span>하고, 
+                        <span class="highlight">다양한 기능</span>을 갖춘 
+                        <span class="highlight">가상화 플랫폼</span>입니다.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                <div>
+                    <div class="key-point">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <span class="text-white font-semibold">활발한 커뮤니티</span>
+                            <p class="text-sm" style="color: #B0B0B0;">개인이나 기업 모두 쉽게 사용할 수 있으며, 많은 사용자들이 서로 도움을 주고받습니다.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <span class="text-white font-semibold">강력한 보안과 안정성</span>
+                            <p class="text-sm" style="color: #B0B0B0;">KVM의 격리 기능과 백업 시스템으로 데이터와 가상 시스템을 안전하게 보호합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="key-point">
+                        <i class="fas fa-cubes"></i>
+                        <div>
+                            <span class="text-white font-semibold">KVM & LXC 완벽 지원</span>
+                            <p class="text-sm" style="color: #B0B0B0;">KVM과 LXC를 지원하여 VM과 컨테이너를 효율적으로 운영하고 다양한 요구사항에 유연하게 대응할 수 있는 환경을 제공합니다.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="key-point">
+                        <i class="fas fa-cloud"></i>
+                        <div>
+                            <span class="text-white font-semibold">클라우드 같은 경험</span>
+                            <p class="text-sm" style="color: #B0B0B0;">웹 기반 인터페이스로 언제 어디서나 서버를 관리하고 모니터링할 수 있습니다.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point">
+                        <i class="fas fa-expand-alt"></i>
+                        <div>
+                            <span class="text-white font-semibold">확장성과 유연성</span>
+                            <p class="text-sm" style="color: #B0B0B0;">하나의 서버에서 시작해 여러 서버를 클러스터로 구성할 수 있는 확장성을 제공합니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="key-point">
+                        <i class="fas fa-code"></i>
+                        <div>
+                            <span class="text-white font-semibold">Terraform을 통한 자동화</span>
+                            <p class="text-sm" style="color: #B0B0B0;">Terraform을 공식 지원하여 Proxmox VE 인프라를 코드로 자동화하고 신속하고 일관된 운영을 제공합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="note-card p-6">
+            <div class="flex items-start">
+                <div class="mr-4 mt-1">
+                    <i class="fas fa-exclamation-triangle text-xl" style="color: #FFD700;"></i>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold text-white mb-2">하지만 알아두세요!</h4>
+                    <p class="mb-3" style="color: #E0E0E0;">
+                        일부 고급 기능을 사용할 때는 <span class="font-semibold text-white">명령어를 직접 입력</span>해야 하고, 
+                        특히 <span class="font-semibold text-white">저장소 설정</span>은 전문적인 지식이 필요할 수 있습니다.
+                    </p>
+                    <div class="p-3 rounded-lg border" style="background-color: rgba(255, 215, 0, 0.1); border-color: #FFD700;">
+                        <p class="text-sm" style="color: #FFD700;">
+                            <i class="fas fa-lightbulb mr-2"></i>
+                            <span class="font-semibold">중요!</span> 홈서버 구축은 전통적인 시스템 엔지니어링과 많은 부분이 겹치므로, 
+                            <span class="underline">HW / OS / Network</span>에 대한 <span class="font-bold">'충분한'</span> 사전 지식 없이는 
+                            학습 곡선이 매우 높을 수 있습니다.

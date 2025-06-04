@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxmox 학습 & 고급 활용</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 600px; /* 세로 길이 조정 */
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+        .main-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .section-header {
+            background: linear-gradient(135deg, #00CED1 0%, #40E0D0 100%);
+            padding: 20px 30px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+        .section-header i {
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        .section-content {
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .category-section {
+            margin-bottom: 30px;
+            border-left: 4px solid #00CED1;
+            padding-left: 20px;
+        }
+        .category-section:last-child {
+            margin-bottom: 0; /* 마지막 카테고리 섹션의 하단 마진 제거 */
+        }
+        .category-title {
+            color: #40E0D0;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .category-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .bg-proxmox {
+            background: linear-gradient(135deg, #1E90FF 0%, #3B82F6 100%);
+        }
+        .bg-community {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        }
+        .bg-homelab {
+            background: linear-gradient(135deg, #E0E0E0 0%, #9CA3AF 100%);
+        }
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .link-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .link-item:hover {
+            background: rgba(0, 206, 209, 0.1);
+            border-color: rgba(0, 206, 209, 0.3);
+            transform: translateY(-2px);
+        }
+        .link-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .link-title {
+            color: #00CED1;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+        }
+        .link-title i {
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+        .link-desc {
+            color: #E0E0E0;
+            font-size: 0.75rem;
+            line-height: 1.3;
+        }
+        .country-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+        .tag-overseas {
+            background: rgba(255, 107, 107, 0.2);
+            color: #FF6B6B;
+        }
+        .tag-domestic {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22C55E;
+        }
+        .intro-text {
+            text-align: center;
+            color: #E0E0E0;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 206, 209, 0.2);
+        }
+        /* "thanks-section" 관련 스타일은 필요 없으므로 주석 처리 또는 삭제 가능
+        .thanks-section {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(0, 206, 209, 0.1) 0%, rgba(64, 224, 208, 0.1) 100%);
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        .thanks-section i {
+            color: #00CED1;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .thanks-section h3 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .thanks-section p {
+            color: #E0E0E0;
+            font-size: 1rem;
+        }
+        */
+        .highlight-text {
+            color: #40E0D0;
+            font-weight: 600;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-8" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h2 class="slide-title">Proxmox 학습 & 고급 활용</h2>
+        
+        <div class="intro-text fade-in-up">
+            Proxmox VE 학습부터 고급 활용까지 단계별 가이드
+        </div>
+        
+        <div class="main-container fade-in-up" style="animation-delay: 0.2s;">
+            <div class="section-header">
+                <i class="fas fa-graduation-cap"></i>
+                학습 자료 & 고급 활용
+            </div>
+            
+            <div class="section-content">
+                <div class="category-section">
+                    <div class="category-title">
+                        <div class="category-icon bg-proxmox">
+                            <i class="fas fa-server text-white text-sm"></i>
+                        </div>
+                        Proxmox 소개 & 설치 가이드
+                    </div>
+                    <div class="link-grid">
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    Proxmox 데이터센터 매니저
+                                </div>
+                                <div class="link-desc">Proxmox 데이터센터 관리 소개</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    Proxmox란 무엇인가
+                                </div>
+                                <div class="link-desc">Proxmox 개요 및 기능 설명</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    098.co.kr Proxmox 카테고리
+                                </div>
+                                <div class="link-desc">Proxmox VE 관련 오픈소스 정보</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    Linux Terminal 블로그
+                                </div>
+                                <div class="link-desc">Proxmox 설치 및 활용법 한글</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <div class="category-title">
+                        <div class="category-icon bg-community">
+                            <i class="fas fa-users text-white text-sm"></i>
+                        </div>
+                        블로그 & 커뮤니티
+                    </div>
+                    <div class="link-grid">
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    Proxmox VE 설치기
+                                </div>
+                                <div class="link-desc">네이버 블로그 설치 경험기</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    Proxmox 네트워크 구성
+                                </div>
+                                <div class="link-desc">네트워크 설정 실전 가이드</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    가상머신 생성 가이드
+                                </div>
+                                <div class="link-desc">Proxmox VM 생성 실습</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    오리앙 블로그
+                                </div>
+                                <div class="link-desc">Proxmox 관련 활용 팁</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    서버포럼 Proxmox
+                                </div>
+                                <div class="link-desc">커뮤니티 질문 및 답변</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    LXC 컨테이너 활용
+                                </div>
+                                <div class="link-desc">Proxmox LXC 컨테이너 실전 활용</div>
+                            </div>
+                            <span class="country-tag tag-domestic">국내</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <div class="category-title">
+                        <div class="category-icon bg-homelab">
+                            <i class="fas fa-network-wired text-white text-sm"></i>
+                        </div>
+                        Homelab & 클러스터 구축
+                    </div>
+                    <div class="link-grid">
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    Homelab 구축 가이드
+                                </div>
+                                <div class="link-desc">Homelab 구축 및 활용 경험기</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    Kubernetes on Proxmox
+                                </div>
+                                <div class="link-desc">Proxmox에서 Kubernetes 구성</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-link"></i>
+                                    Proxmox 클러스터 구축
+                                </div>
+                                <div class="link-desc">확장 가능한 클러스터 엔지니어링</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fab fa-youtube"></i>
+                                    Proxmox 관련 동영상
+                                </div>
+                                <div class="link-desc">YouTube 튜토리얼 영상</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                        <div class="link-item">
+                            <div class="link-content">
+                                <div class="link-title">
+                                    <i class="fas fa-search"></i>
+                                    Perplexity 검색
+                                </div>
+                                <div class="link-desc">AI 기반 Proxmox 검색</div>
+                            </div>
+                            <span class="country-tag tag-overseas">해외</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+    </div>
+</body>
+</html>

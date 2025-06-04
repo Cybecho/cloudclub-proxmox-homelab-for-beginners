@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxmox 프레젠테이션 뷰어 (Cybecho)</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"> <!-- Font Awesome은 링크 아이콘용으로 유지 -->
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 15px; /* 헤더와 페이지 상단 여백 약간 줄임 */
+        }
+
+        #presentation-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+
+        .viewer-header {
+            width: 100%;
+            max-width: 1280px;
+            display: flex; /* 로고와 링크들을 가로로 배치 */
+            align-items: center; /* 수직 중앙 정렬 */
+            justify-content: center; /* 수평 중앙 정렬 */
+            margin-bottom: 15px;
+            color: #ffffff;
+            flex-wrap: wrap; /* 화면 작을 시 줄바꿈 */
+        }
+
+        .viewer-header .logo-image {
+            width: 32px;  /* 로고 이미지 크기 작게 조절 */
+            height: 32px; /* 로고 이미지 크기 작게 조절 */
+            margin-right: 15px; /* 로고와 링크들 사이 간격 */
+        }
+        
+        .viewer-header .contact-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 10px; /* 링크 간 간격 */
+            font-size: 0.9rem; /* 링크 폰트 크기 약간 줄임 */
+            transition: color 0.3s ease;
+            display: inline-flex; /* 아이콘과 텍스트 정렬 */
+            align-items: center;
+        }
+
+        .viewer-header .contact-links a:hover {
+            color: #00CED1;
+        }
+
+        .viewer-header .contact-links i {
+            margin-right: 5px; /* 아이콘과 텍스트 간격 */
+        }
+
+        .slide-area {
+            width: 1280px;
+            height: 800px; /* 16:10 비율 */
+            position: relative;
+            overflow: hidden; 
+            border: 1px solid #333;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            background-color: #2B2B2B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 1;
+        }
+
+        .slide iframe {
+            width: 1280px;
+            height: 800px;
+            border: none;
+        }
+
+        .navigation-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1280px;
+            padding: 15px 0;
+            margin-top: 10px;
+        }
+
+        .nav-button {
+            background-color: #00CED1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-button i {
+            margin-right: 8px;
+        }
+        .nav-button:first-child i {
+            margin-right: 0;
+            margin-left: 8px;
+        }
+
+        .nav-button:hover {
+            background-color: #00A8A9;
+        }
+        
+        .nav-button:active {
+            transform: scale(0.98);
+        }
+
+        .nav-button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        #slide-counter {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .loading-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #888;
+            background-color: #2B2B2B;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        
+        <div class="viewer-header">
+            <img src="https://img.icons8.com/fluent/512/proxmox.png" alt="Proxmox Logo" class="logo-image">
+            <div class="contact-links">
+                <a href="https://github.com/Cybecho" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/cybecho/" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>LinkedIn
+                </a>
+                <a href="mailto:cybecho.proxy@gmail.com" title="Email">
+                    <i class="fas fa-envelope"></i>Email
+                </a>
+            </div>
+        </div>
+
+        <div class="slide-area">
+            <!-- 슬라이드 주입 영역 -->
+        </div>
+
+        <div class="navigation-controls">
+            <button id="prev-slide" class="nav-button"><i class="fas fa-arrow-left"></i> 이전</button>
+            <span id="slide-counter">1 / N</span>
+            <button id="next-slide" class="nav-button">다음 <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <script>
+        const slideOrder = [
+            "001.html", "002.html", "003.html", "004.html", "005.html", "006.html", 
+            "007-0.html", "007-1.html", "007-2.html", 
+            "008.html", "009.html", "010.html", "011.html", "012.html", "013.html", 
+            "014.html", "015.html", "016.html", "017.html", "018.html", "019.html", 
+            "020.html", "021.html"
+        ];
+
+        let currentSlideIndex = 0;
+        const slideArea = document.querySelector('.slide-area');
+        const prevButton = document.getElementById('prev-slide');
+        const nextButton = document.getElementById('next-slide');
+        const slideCounter = document.getElementById('slide-counter');
+        let slideElements = [];
+
+        const TARGET_VIEWPORT_WIDTH = 1280;
+        const TARGET_VIEWPORT_HEIGHT = 800; // 16:10 비율
+
+        function initializeSlides() {
+            console.log("뷰어: 슬라이드 초기화 시작...");
+            slideOrder.forEach((slideName, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.classList.add('slide');
+                slideDiv.id = `slide-${index}`;
+
+                const loadingPlaceholder = document.createElement('div');
+                loadingPlaceholder.classList.add('loading-placeholder');
+                loadingPlaceholder.textContent = `${slideName} 로딩 중...`;
+                slideDiv.appendChild(loadingPlaceholder);
+
+                const iframe = document.createElement('iframe');
+                iframe.style.width = `${TARGET_VIEWPORT_WIDTH}px`;
+                iframe.style.height = `${TARGET_VIEWPORT_HEIGHT}px`;
+                iframe.style.border = 'none';
+                // iframe.style.visibility = 'hidden'; 
+
+                console.log(`뷰어: ${slideName} (인덱스 ${index}) iframe 생성`);
+
+                iframe.onload = () => {
+                    console.log(`뷰어: ${slideName} iframe 로드 완료.`);
+                    if (slideDiv.contains(loadingPlaceholder)) {
+                        loadingPlaceholder.style.display = 'none';
+                    }
+
+                    try {
+                        const iframeWin = iframe.contentWindow;
+                        const iframeDoc = iframeWin.document;
+                        if (!iframeDoc || !iframeDoc.body || !iframeDoc.documentElement) {
+                            console.warn(`뷰어: ${slideName}의 document, body, 또는 documentElement 접근 불가.`);
+                            // iframe.style.visibility = 'visible';
+                            return;
+                        }
+
+                        const bodyInIframe = iframeDoc.body;
+                        const htmlInIframe = iframeDoc.documentElement;
+                        
+                        iframeWin.requestAnimationFrame(() => {
+                            const contentWidth = Math.max(bodyInIframe.scrollWidth, htmlInIframe.scrollWidth, TARGET_VIEWPORT_WIDTH);
+                            const contentHeight = Math.max(bodyInIframe.scrollHeight, htmlInIframe.scrollHeight, TARGET_VIEWPORT_HEIGHT);
+                            
+                            console.log(`뷰어: ${slideName} 내부 콘텐츠 크기: ${contentWidth}x${contentHeight}`);
+
+                            let scale = 1;
+                            if (contentWidth > TARGET_VIEWPORT_WIDTH || contentHeight > TARGET_VIEWPORT_HEIGHT) {
+                                const scaleX = TARGET_VIEWPORT_WIDTH / contentWidth;
+                                const scaleY = TARGET_VIEWPORT_HEIGHT / contentHeight;
+                                scale = Math.min(scaleX, scaleY);
+                            }
+                            // scale = Math.min(1, scale); // 확대 방지 필요시
+
+                            console.log(`뷰어: ${slideName} 계산된 스케일: ${scale}`);
+
+                            let styleElement = iframeDoc.getElementById('viewer-injected-styles');
+                            if (!styleElement) {
+                                styleElement = iframeDoc.createElement('style');
+                                styleElement.id = 'viewer-injected-styles';
+                                iframeDoc.head.appendChild(styleElement);
+                            }
+
+                            styleElement.textContent = `
+                                html {
+                                    width: 100% !important;
+                                    height: 100% !important;
+                                    overflow: hidden !important;
+                                    margin: 0 !important;
+                                    padding: 0 !important;
+                                    box-sizing: border-box !important;
+                                    display: flex !important;
+                                    align-items: center !important;
+                                    justify-content: center !important;
+                                    background-color: transparent !important;
+                                }
+                                body {
+                                    width: ${contentWidth}px !important; 
+                                    height: ${contentHeight}px !important;
+                                    overflow: hidden !important;
+                                    margin: 0 auto !important; 
+                                    padding: 0 !important;
+                                    box-sizing: border-box !important;
+                                    transform-origin: center center !important;
+                                    transform: scale(${scale}) !important;
+                                    background-color: transparent !important; 
+                                }
+                            `;
+                            // iframe.style.visibility = 'visible';
+                            console.log(`뷰어: ${slideName}에 스케일링 및 중앙 정렬 스타일 주입 완료.`);
+                        });
+
+                    } catch (e) {
+                        console.warn(`뷰어: ${slideName} iframe 내용 스케일링/정렬 중 오류:`, e);
+                        // iframe.style.visibility = 'visible';
+                    }
+                };
+
+                iframe.onerror = (event) => {
+                    console.error(`뷰어: ${slideName} iframe 로딩 오류. 이벤트:`, event);
+                    if (slideDiv.contains(loadingPlaceholder)) {
+                        loadingPlaceholder.textContent = `${slideName} 로딩 오류. 콘솔(F12) 및 파일 경로 확인.`;
+                        loadingPlaceholder.style.color = 'red';
+                    }
+                    // iframe.style.visibility = 'visible';
+                };
+                
+                slideDiv.appendChild(iframe);
+                slideArea.appendChild(slideDiv);
+                slideElements.push(slideDiv);
+
+                iframe.src = slideName;
+            });
+            updateSlideView();
+        }
+
+        function updateSlideView() {
+            if (slideElements.length === 0) return;
+            slideElements.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlideIndex);
+            });
+            slideCounter.textContent = `${currentSlideIndex + 1} / ${slideOrder.length}`;
+            prevButton.disabled = currentSlideIndex === 0;
+            nextButton.disabled = currentSlideIndex === slideOrder.length - 1;
+            console.log(`뷰어: 활성 슬라이드: ${currentSlideIndex} (${slideOrder[currentSlideIndex]})`);
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                updateSlideView();
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentSlideIndex < slideOrder.length - 1) {
+                currentSlideIndex++;
+                updateSlideView();
+            }
+        });
+
+        // 키보드 이벤트 핸들러는 이미 양옆 화살표 키를 지원합니다.
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+                if (currentSlideIndex > 0) {
+                    currentSlideIndex--;
+                    updateSlideView();
+                }
+            } else if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
+                 event.preventDefault();
+                if (currentSlideIndex < slideOrder.length - 1) {
+                    currentSlideIndex++;
+                    updateSlideView();
+                }
+            }
+        });
+
+        initializeSlides();
+    </script>
+
+</body>
+</html>

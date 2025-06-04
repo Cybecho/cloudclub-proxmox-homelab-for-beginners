@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Type1 HyperVisor Proxmox - 홈서버 구축</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #2B2B2B 0%, #1A1A1A 100%);
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+        }
+        .main-title {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #FFFFFF;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            margin-bottom: 1rem;
+            text-align: center;
+            line-height: 1.1;
+        }
+        .proxmox-highlight {
+            color: #FFB366;
+            background: linear-gradient(45deg, #FFB366, #FF8C42);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #E0E0E0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .author-info {
+            position: absolute;
+            bottom: 3rem;
+            right: 3rem;
+            text-align: right;
+        }
+        .author-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 0.5rem;
+        }
+        .author-details {
+            font-size: 1.1rem;
+            color: #00CED1;
+            font-weight: 500;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 206, 209, 0.2) 0%, transparent 70%);
+            bottom: -250px;
+            right: -150px;
+            animation: float 8s ease-in-out infinite;
+        }
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 179, 102, 0.15) 0%, transparent 70%);
+            top: -200px;
+            left: -100px;
+            animation: float 6s ease-in-out infinite reverse;
+        }
+        .shape-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 206, 209, 0.1) 0%, transparent 70%);
+            top: 20%;
+            right: 10%;
+            animation: float 10s ease-in-out infinite;
+        }
+        .server-icon {
+            position: absolute;
+            top: 15%;
+            left: 10%;
+            font-size: 6rem;
+            color: rgba(0, 206, 209, 0.3);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        .cloud-icon {
+            position: absolute;
+            bottom: 25%;
+            left: 15%;
+            font-size: 4rem;
+            color: rgba(255, 179, 102, 0.3);
+            animation: float 7s ease-in-out infinite;
+        }
+        .network-icon {
+            position: absolute;
+            top: 25%;
+            right: 15%;
+            font-size: 5rem;
+            color: rgba(0, 206, 209, 0.25);
+            animation: pulse 5s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.05); }
+        }
+        .tech-badge {
+            background: linear-gradient(45deg, rgba(0, 206, 209, 0.2), rgba(255, 179, 102, 0.2));
+            border: 2px solid rgba(0, 206, 209, 0.4);
+            border-radius: 20px;
+            padding: 0.5rem 1.5rem;
+            color: #00CED1;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0 0.5rem;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .decorative-line {
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00CED1, transparent);
+            margin: 2rem auto;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        
+        <!-- Background Icons -->
+        <i class="fas fa-server server-icon"></i>
+        <i class="fas fa-cloud cloud-icon"></i>
+        <i class="fas fa-network-wired network-icon"></i>
+        
+        <!-- Main Content -->
+        <div class="text-center">
+            <h1 class="main-title">
+                Type1 HyperVisor <span class="proxmox-highlight">Proxmox</span>
+            </h1>
+            
+            <div class="decorative-line"></div>
+            
+            <h2 class="subtitle">
+                홈서버 구축, 한 입 어떠신가요?
+            </h2>
+            
+            <div class="tech-stack">
+                <span class="tech-badge">
+                    <i class="fas fa-cube mr-2"></i>
+                    Virtualization
+                </span>
+                <span class="tech-badge">
+                    <i class="fas fa-home mr-2"></i>
+                    Home Lab
+                </span>
+                <span class="tech-badge">
+                    <i class="fas fa-cogs mr-2"></i>
+                    Infrastructure
+                </span>
+            </div>
+        </div>
+        
+        <!-- Author Information -->
+        <div class="author-info">
+            <div class="author-name">소병욱</div>
+            <div class="author-details">
+                <div style="color: #00CED1; margin-bottom: 0.25rem;">그냥저냥 취준생~</div>
+                <div style="color: #FFB366;">Cloud Club 7기</div>
+            </div>
+        </div>
+        
+        <!-- Subtle bottom accent -->
+        <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #00CED1, #FFB366, #00CED1); opacity: 0.6;"></div>
+    </div>
+</body>
+</html>

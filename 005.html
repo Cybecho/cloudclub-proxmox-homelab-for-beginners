@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가상화 기본 - 하이퍼바이저란?</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .concept-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        .concept-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .hypervisor-types {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .type-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border-top: 4px solid;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        .type-1 {
+            border-color: #00CED1;
+        }
+        .type-2 {
+            border-color: #FFA500;
+        }
+        .type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .icon-container {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+        }
+        .a380-example {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            border-left: 4px solid #FFD700;
+            margin-bottom: 1rem;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-12" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h2 class="slide-title">가상화 기본</h2>
+        <div class="mb-2">
+            <h3 class="text-2xl font-medium" style="color: #00CED1;">하이퍼바이저란?</h3>
+        </div>
+        
+        <div class="a380-example mb-6">
+            <div class="flex items-start">
+                <div class="icon-container text-green-200" style="background-color: rgba(255, 215, 0, 0.2);">
+                    <i class="fas fa-plane text-3xl" style="color: #FFD700;"></i>
+                </div>
+                <div>
+                    <p class="text-white text-lg">
+                        <span class="font-bold" style="color: #FFD700;">비행기 예시로 이해하기:</span> 
+                        <span class="italic">생각해봐요, 거대한 비행기가 단 한명만을 위해 사용된다면, 기름값, 인건비, 정비비용... 과연 비용 효율적일까요?</span>
+                    </p>
+                    <p class="mt-2" style="color: #00CED1;">하이퍼바이저는 이런 고민에서 시작된 개념입니다!</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept-card mb-6">
+            <div class="flex items-center mb-3">
+                <div class="icon-container text-blue-200" style="background-color: rgba(0, 206, 209, 0.2);">
+                    <i class="fas fa-server text-3xl" style="color: #00CED1;"></i>
+                </div>
+                <h4 class="text-xl font-bold text-white">가상화(Virtualization)란?</h4>
+            </div>
+            <p class="mb-3" style="color: #E0E0E0;">
+                하나의 물리적 컴퓨터를 여러 개의 가상 컴퓨터로 나누어 사용하는 기술
+            </p>
+            <ul class="text-white space-y-2">
+                <li class="flex items-center">
+                    <i class="fas fa-check-circle mr-2" style="color: #00CED1;"></i>
+                    <span>자원(CPU, 메모리, 저장소)의 효율적 분배 및 활용</span>
+                </li>
+                <li class="flex items-center">
+                    <i class="fas fa-check-circle mr-2" style="color: #00CED1;"></i>
+                    <span>여러 운영체제를 하나의 물리적 하드웨어에서 동시 실행</span>
+                </li>
+                <li class="flex items-center">
+                    <i class="fas fa-check-circle mr-2" style="color: #00CED1;"></i>
+                    <span>자원 낭비 방지 및 유지보수 비용 절감</span>
+                </li>
+            </ul>
+        </div>
+        
+        <h4 class="text-xl font-bold text-white mb-3">하이퍼바이저의 유형</h4>
+        <div class="hypervisor-types">
+            <div class="type-card type-1">
+                <div class="flex items-center mb-2">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background-color: rgba(0, 206, 209, 0.2);">
+                        <span class="text-white font-bold">1</span>
+                    </div>
+                    <h5 class="text-lg font-bold text-white">Type 1 (베어메탈)</h5>
+                </div>
+                <div class="text-sm space-y-2 mb-3" style="color: #E0E0E0;">
+                    <p>하드웨어 위에 <span style="color: #FFD700;">직접</span> 설치되어 작동</p>
+                    <p>성능과 보안에 최적화됨</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-2 py-1 text-xs rounded" style="background-color: rgba(0, 206, 209, 0.2); color: #00CED1;">Proxmox</span>
+                    <span class="px-2 py-1 text-xs rounded" style="background-color: rgba(0, 206, 209, 0.2); color: #00CED1;">VMware ESXi</span>
+                    <span class="px-2 py-1 text-xs rounded" style="background-color: rgba(0, 206, 209, 0.2); color: #00CED1;">Microsoft Hyper-V</span>
+                </div>
+            </div>
+            
+            <div class="type-card type-2">
+                <div class="flex items-center mb-2">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background-color: rgba(255, 165, 0, 0.2);">
+                        <span class="text-white font-bold">2</span>
+                    </div>
+                    <h5 class="text-lg font-bold text-white">Type 2 (호스티드)</h5>
+                </div>
+                <div class="text-sm space-y-2 mb-3" style="color: #E0E0E0;">
+                    <p>기존 운영체제 <span style="color: #FFD700;">위에</span> 설치되어 작동</p>
+                    <p>설치 및 사용이 더 간편함</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-2 py-1 text-xs rounded" style="background-color: rgba(255, 165, 0, 0.2); color: #FFA500;">VMware Workstation</span>
+                    <span class="px-2 py-1 text-xs rounded" style="background-color: rgba(255, 165, 0, 0.2); color: #FFA500;">VirtualBox</span>
+                    <span class="px-2 py-1 text-xs rounded" style="background-color: rgba(255, 165, 0, 0.2); color: #FFA500;">Parallels</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

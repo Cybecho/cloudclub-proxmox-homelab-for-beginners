@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>남는 컴퓨터 활용 개요</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #2B2B2B 0%, #1A1A1A 100%);
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.05);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+        .computer-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .computer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .note-card {
+            background: rgba(0, 206, 209, 0.3);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 206, 209, 0.3);
+            animation: pulse 3s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 206, 209, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 206, 209, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 206, 209, 0); }
+        }
+        .benefit-item {
+            transition: transform 0.2s ease;
+        }
+        .benefit-item:hover {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-12" style="background: linear-gradient(135deg, #2B2B2B 0%, #1A1A1A 100%);">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h2 class="slide-title">남는 컴퓨터 활용 개요</h2>
+        
+        <div class="mb-6">
+            <p class="text-lg" style="color: #E0E0E0;">
+                <span class="text-white font-semibold">어떤 컴퓨터</span>를 Proxmox 홈서버로 활용해볼 수 있을까요?
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-3 gap-6 mb-8">
+            <!-- 미니 PC -->
+            <div class="computer-card p-6">
+                <div class="flex items-center mb-4">
+                    <div class="card-icon bg-green-500 bg-opacity-20 text-green-300">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-xl ml-4">미니 PC</h3>
+                </div>
+                <p class="mb-4" style="color: #E0E0E0;">
+                    소형 크기로 공간 효율적, 저전력 소비, 24시간 운영에 적합한 선택지
+                </p>
+                <ul class="text-sm" style="color: #E0E0E0;">
+                    <li class="mb-2 benefit-item flex items-center">
+                        <i class="fas fa-check text-green-400 mr-2"></i>
+                        N100/N95 기반 저전력 미니 PC
+                    </li>
+                    <li class="mb-2 benefit-item flex items-center">
+                        <i class="fas fa-check text-green-400 mr-2"></i>
+                        구형 Mac Mini (2014~2018)
+                    </li>
+                    <li class="benefit-item flex items-center">
+                        <i class="fas fa-check text-green-400 mr-2"></i>
+                        소형 기업용 PC (ThinkCentre, HP Elite)
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 데스크톱 PC -->
+            <div class="computer-card p-6">
+                <div class="flex items-center mb-4">
+                    <div class="card-icon text-cyan-300" style="background-color: rgba(0, 206, 209, 0.2);">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-xl ml-4">데스크톱 PC</h3>
+                </div>
+                <p class="mb-4" style="color: #E0E0E0;">
+                    확장성과 성능이 뛰어나며 다양한 구성 옵션, 중고로 쉽게 구할 수 있는 옵션
+                </p>
+                <ul class="text-sm" style="color: #E0E0E0;">
+                    <li class="mb-2 benefit-item flex items-center">
+                        <i class="fas fa-check mr-2" style="color: #00CED1;"></i>
+                        i5 6세대 이상 중고 데스크톱
+                    </li>
+                    <li class="mb-2 benefit-item flex items-center">
+                        <i class="fas fa-check mr-2" style="color: #00CED1;"></i>
+                        Lenovo ThinkStation (P900, P330)
+                    </li>
+                    <li class="benefit-item flex items-center">
+                        <i class="fas fa-check mr-2" style="color: #00CED1;"></i>
+                        HP Z 시리즈 워크스테이션
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 서버 등급 -->
+            <div class="computer-card p-6">
+                <div class="flex items-center mb-4">
+                    <div class="card-icon bg-purple-500 bg-opacity-20 text-purple-300">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-xl ml-4">서버 등급</h3>
+                </div>
+                <p class="mb-4" style="color: #E0E0E0;">
+                    엔터프라이즈급 안정성과 고성능, 전문적 환경을 위한 솔루션
+                </p>
+                <ul class="text-sm" style="color: #E0E0E0;">
+                    <li class="mb-2 benefit-item flex items-center">
+                        <i class="fas fa-check text-purple-400 mr-2"></i>
+                        중고 서버렉 장비
+                    </li>
+                    <li class="mb-2 benefit-item flex items-center">
+                        <i class="fas fa-check text-purple-400 mr-2"></i>
+                        Dell PowerEdge, HP ProLiant
+                    </li>
+                    <li class="benefit-item flex items-center">
+                        <i class="fas fa-check text-purple-400 mr-2"></i>
+                        전문 서버 판매점의 번들 패키지
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 중요 노트 섹션 -->
+        <div class="note-card p-6">
+            <div class="flex items-start">
+                <div class="text-yellow-300 text-3xl mr-4">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-2">하드웨어 지식의 중요성</h4>
+                    <p style="color: #E0E0E0;">
+                        <span class="text-white font-medium">컴퓨터공학과는 컴퓨터 조립하는 과가 아니라는 말처럼</span>, 많은 재학생/졸업생마저도 하드웨어에 대한 관심 및 지식 없이 바로 시스템을 조립하는 것은 어려울 수 있습니다. 이 챕터에서는 홈서버 구축에 적합한 다양한 하드웨어 옵션을 살펴보겠습니다.
+                    </p>
+                    <p class="mt-4 font-medium" style="color: #E0E0E0;">
+                        기억하세요: 최첨단 장비가 아닌, <span class="text-yellow-300">목적에 맞는</span> 하드웨어 선택이 중요합니다!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

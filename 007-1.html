@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hypervisor Performance Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #2B2B2B 0%, #1A1A1A 100%);
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+        }
+        .main-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            flex: 1;
+        }
+        .chart-section {
+            display: flex;
+            flex-direction: column;
+        }
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            padding: 1.5rem;
+            flex: 1;
+            min-height: 300px;
+        }
+        .chart-description {
+            text-align: center;
+            color: #C0C0C0;
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+            line-height: 1.4;
+            padding: 0 1rem;
+        }
+        .legend-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #E0E0E0;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            bottom: -150px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 250px;
+            height: 250px;
+            top: -125px;
+            left: -100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h1 class="main-title">Hypervisor Performance Analysis</h1>
+        
+        <div class="charts-container">
+            <!-- Left Chart: Performance Comparison -->
+            <div class="chart-section">
+                <h2 class="chart-title">Performance Comparison</h2>
+                <div class="legend-container">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #00CED1;"></div>
+                        <span>Native OS</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #FFB366;"></div>
+                        <span>Proxmox T1</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #A8B399;"></div>
+                        <span>VirtualBox T2</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+                <p class="chart-description">
+                    네이티브 OS 대비 Type 1(Proxmox)과 Type 2(VirtualBox) 하이퍼바이저의 성능
+                </p>
+            </div>
+            
+            <!-- Right Chart: Overhead Comparison -->
+            <div class="chart-section">
+                <h2 class="chart-title">Performance Overhead</h2>
+                <div class="legend-container">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #00CED1;"></div>
+                        <span>Type 1 Proxmox</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #FF6B6B;"></div>
+                        <span>Type 2 VBox</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="overheadChart"></canvas>
+                </div>
+                <p class="chart-description">
+                    Type 1(Proxmox) vs Type 2(VirtualBox) 성능 손실률
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Performance Comparison Chart
+        const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+        
+        const performanceData = {
+            labels: ['CPU', 'Memory', 'Disk I/O', 'Network'],
+            datasets: [
+                {
+                    label: 'Native OS',
+                    data: [100, 100, 100, 100],
+                    backgroundColor: '#00CED1',
+                    borderColor: '#00CED1',
+                    borderWidth: 2,
+                },
+                {
+                    label: 'Proxmox T1',
+                    data: [91, 84, 93, 92],
+                    backgroundColor: '#FFB366',
+                    borderColor: '#FFB366',
+                    borderWidth: 2,
+                },
+                {
+                    label: 'VirtualBox T2',
+                    data: [83, 84, 64, 75],
+                    backgroundColor: '#A8B399',
+                    borderColor: '#A8B399',
+                    borderWidth: 2,
+                }
+            ]
+        };
+
+        const performanceConfig = {
+            type: 'bar',
+            data: performanceData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            color: '#E0E0E0',
+                            font: { family: 'Noto Sans KR', size: 11 },
+                            callback: function(value) { return value + '%'; }
+                        },
+                        grid: { color: 'rgba(224, 224, 224, 0.1)' }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#E0E0E0',
+                            font: { family: 'Noto Sans KR', size: 11, weight: '500' }
+                        },
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top',
+                        color: '#FFFFFF',
+                        font: {
+                            size: 11,
+                            weight: 'bold'
+                        },
+                        formatter: function(value) {
+                            return value + '%';
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(43, 43, 43, 0.95)',
+                        titleColor: '#FFFFFF',
+                        bodyColor: '#E0E0E0',
+                        borderColor: '#00CED1',
+                        borderWidth: 1,
+                        titleFont: { family: 'Noto Sans KR', weight: '600' },
+                        bodyFont: { family: 'Noto Sans KR' },
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.parsed.y + '%';
+                            }
+                        }
+                    }
+                },
+                layout: { padding: 10 },
+                animation: { duration: 1200, easing: 'easeInOutQuart' }
+            }
+        };
+
+        // Overhead Comparison Chart
+        const overheadCtx = document.getElementById('overheadChart').getContext('2d');
+        
+        const overheadData = {
+            labels: ['CPU', 'Memory', 'Disk I/O', 'Network'],
+            datasets: [
+                {
+                    label: 'Type 1 Proxmox',
+                    data: [9, 16, 7, 8],
+                    backgroundColor: '#00CED1',
+                    borderColor: '#00CED1',
+                    borderWidth: 2,
+                },
+                {
+                    label: 'Type 2 VBox',
+                    data: [17, 16, 36, 25],
+                    backgroundColor: '#FF6B6B',
+                    borderColor: '#FF6B6B',
+                    borderWidth: 2,
+                }
+            ]
+        };
+
+        const overheadConfig = {
+            type: 'bar',
+            data: overheadData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 40,
+                        ticks: {
+                            color: '#E0E0E0',
+                            font: { family: 'Noto Sans KR', size: 11 },
+                            callback: function(value) { return value + '%'; }
+                        },
+                        grid: { color: 'rgba(224, 224, 224, 0.1)' }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#E0E0E0',
+                            font: { family: 'Noto Sans KR', size: 11, weight: '500' }
+                        },
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top',
+                        color: '#FFFFFF',
+                        font: {
+                            size: 11,
+                            weight: 'bold'
+                        },
+                        formatter: function(value) {
+                            return value + '%';
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(43, 43, 43, 0.95)',
+                        titleColor: '#FFFFFF',
+                        bodyColor: '#E0E0E0',
+                        borderColor: '#00CED1',
+                        borderWidth: 1,
+                        titleFont: { family: 'Noto Sans KR', weight: '600' },
+                        bodyFont: { family: 'Noto Sans KR' },
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.parsed.y + '% loss';
+                            }
+                        }
+                    }
+                },
+                layout: { padding: 10 },
+                animation: { duration: 1200, easing: 'easeInOutQuart' }
+            }
+        };
+
+        // Initialize both charts
+        Chart.register(ChartDataLabels);
+        new Chart(performanceCtx, performanceConfig);
+        new Chart(overheadCtx, overheadConfig);
+    </script>
+</body>
+</html>

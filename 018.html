@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스터디를 운영하면서 깨달은 것</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 2rem;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 120px;
+            height: 6px;
+            background: linear-gradient(90deg, #00CED1 0%, #40E0D0 100%);
+            border-radius: 3px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.05);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 500px;
+            height: 500px;
+            bottom: -250px;
+            right: -150px;
+        }
+        .shape-2 {
+            width: 350px;
+            height: 350px;
+            top: -175px;
+            left: -175px;
+        }
+        .custom-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        .custom-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .highlight-text {
+            color: #40E0D0;
+            font-weight: 700;
+        }
+        .challenge-item, .solution-item {
+            position: relative;
+            padding: 12px 0 12px 35px;
+            margin-bottom: 16px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .challenge-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 18px;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #FF6B6B 0%, #EF4444 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(255, 107, 107, 0.4);
+        }
+        .solution-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 18px;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #22C55E 0%, #10B981 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+        .troubleshooting-eye {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00CED1 0%, #6366F1 100%);
+            box-shadow: 0 0 40px rgba(0, 206, 209, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .troubleshooting-eye::before {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+        .ts-process-container {
+            padding: 30px 20px;
+            position: relative;
+        }
+        .ts-process {
+            position: relative;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin: 60px 0;
+        }
+        .ts-process-step {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00CED1 0%, #40E0D0 100%);
+            position: absolute;
+            top: -6px;
+            transform: translateX(-50%);
+            z-index: 2;
+            box-shadow: 0 0 15px rgba(0, 206, 209, 0.6);
+        }
+        .ts-process-fill {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(90deg, #00CED1 0%, #40E0D0 100%);
+            border-radius: 4px;
+            z-index: 1;
+        }
+        .ts-step-label {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 8px 12px;
+            min-width: 100px;
+            text-align: center;
+        }
+        .section-header {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .insight-box {
+            background: linear-gradient(135deg, rgba(0, 206, 209, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
+            border: 1px solid rgba(0, 206, 209, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .center-content {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .mindset-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 16px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-8" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h1 class="slide-title">스터디를 운영하면서 깨달은 것</h1>
+        
+        <div class="custom-card p-6 mb-8">
+            <p class="text-white text-center text-lg font-medium leading-relaxed">
+                하드웨어부터 시스템을 설계하며 스터디원들이 겪은 어려움과 문제 해결 과정을 통한 인사이트
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-8">
+            <!-- Left Column: Common Challenges -->
+            <div class="custom-card p-6">
+                <h2 class="section-header text-white">
+                    <i class="fas fa-exclamation-triangle text-xl" style="color: #FFD700;"></i>
+                    기억에 남는 스터디원들의 난관
+                </h2>
+                
+                <div class="space-y-4" style="color: #FFFFFF;">
+                    <div class="challenge-item">
+                        <p><span class="highlight-text">설치 환경 이슈</span><br>
+                        Debian 위에 Proxmox를 직접 설치하는 복잡한 과정</p>
+                    </div>
+                    
+                    <div class="challenge-item">
+                        <p><span class="highlight-text">아키텍처 문제</span><br>
+                        ARM 기반 아키텍처에 x86 OS를 설치하려는 시도</p>
+                    </div>
+                    
+                    <div class="challenge-item">
+                        <p><span class="highlight-text">네트워크 설정</span><br>
+                        DHCP 및 게이트웨이에 대한 이해 부족</p>
+                    </div>
+                    
+                    <div class="challenge-item">
+                        <p><span class="highlight-text">경험 부재</span><br>
+                        대부분 직접 컴퓨터를 구축한 경험 없음</p>
+                    </div>
+                    
+                    <div class="challenge-item">
+                        <p><span class="highlight-text">네트워크 구성</span><br>
+                        집 내부 네트워크를 그릴 수 있는 사람은 소수</p>
+                    </div>
+                </div>
+                
+                <div class="insight-box float-animation" style="animation-delay: 0.3s;">
+                    <p class="text-white text-center font-medium">
+                        "이러한 <span class="highlight-text">삽질을 통해</span> TS(Troubleshooting) 능력이 향상됩니다"
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Right Column: Troubleshooting Mindset -->
+            <div class="custom-card p-6">
+                <h2 class="section-header text-white">
+                    <i class="fas fa-search text-xl" style="color: #FFD700;"></i>
+                    트러블슈팅 마인드셋
+                </h2>
+                
+                <div class="center-content">
+                    <div class="troubleshooting-eye mx-auto pulse-animation">
+                        <i class="fas fa-eye text-white text-3xl z-10 relative"></i>
+                    </div>
+                    
+                    <h3 class="mindset-title">
+                        "트러블슈팅을 위한 눈을 가져야 한다!"
+                    </h3>
+                </div>
+                
+                <div class="space-y-4" style="color: #FFFFFF;">
+                    <div class="solution-item">
+                        <p><span class="highlight-text">문제 분류</span><br>
+                        대범주, 중범주, 소범주로 나누어 접근</p>
+                    </div>
+                    
+                    <div class="solution-item">
+                        <p><span class="highlight-text">원인 분석</span><br>
+                        하드웨어부터 소프트웨어까지 체계적 검토</p>
+                    </div>
+                    
+                    <div class="solution-item">
+                        <p><span class="highlight-text">지식 적용</span><br>
+                        OS, 네트워크, 하드웨어 지식 통합</p>
+                    </div>
+                    
+                    <div class="solution-item">
+                        <p><span class="highlight-text">해결 역량</span><br>
+                        안정적인 서버를 구축하고 운용하는 능력 향상</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom: TS Process Visualization -->
+        <div class="mt-8 custom-card">
+            <div class="ts-process-container">
+                <h3 class="text-white font-bold text-xl text-center mb-8">트러블슈팅 과정</h3>
+                
+                <div class="ts-process">
+                    <div class="ts-process-fill" style="width: 100%;"></div>
+                    
+                    <div class="ts-process-step" style="left: 10%;">
+                        <div class="ts-step-label">
+                            <p class="text-white text-sm font-semibold">문제 식별</p>
+                        </div>
+                    </div>
+                    
+                    <div class="ts-process-step" style="left: 30%;">
+                        <div class="ts-step-label">
+                            <p class="text-white text-sm font-semibold">원인 분석</p>
+                        </div>
+                    </div>
+                    
+                    <div class="ts-process-step" style="left: 50%;">
+                        <div class="ts-step-label">
+                            <p class="text-white text-sm font-semibold">해결책 탐색</p>
+                        </div>
+                    </div>
+                    
+                    <div class="ts-process-step" style="left: 70%;">
+                        <div class="ts-step-label">
+                            <p class="text-white text-sm font-semibold">해결 적용</p>
+                        </div>
+                    </div>
+                    
+                    <div class="ts-process-step" style="left: 90%;">
+                        <div class="ts-step-label">
+                            <p class="text-white text-sm font-semibold">검증 및 학습</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <p class="text-lg font-medium" style="color: #E0E0E0;">
+                        결국 <span class="text-xl font-bold" style="color: #40E0D0;">TS(Troubleshooting)다!</span>
+                    </p>
+                    <p class="text-base mt-2" style="color: #E0E0E0;">
+                        문제를 체계적으로 분류하고 해결하는 능력이 홈서버 구축의 핵심입니다
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

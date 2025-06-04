@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who am I? - 소병욱</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.25);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.85rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 5px;
+            background-color: #00CED1;
+            border-radius: 2.5px;
+        }
+        .content-card {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 5px solid #00CED1;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 1.25rem;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            color: #E0E0E0;
+        }
+        .content-card:hover {
+            transform: translateX(8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .content-icon-wrapper {
+            background: rgba(0, 206, 209, 0.15);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.25rem;
+            color: #00CED1;
+            flex-shrink: 0;
+        }
+        .profile-section {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+        }
+        .contact-link {
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+        .contact-link:hover {
+            color: #00CED1;
+            transform: translateY(-2px);
+        }
+        .timeline-year {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #00CED1;
+            width: 60px;
+            flex-shrink: 0;
+        }
+        .timeline-content {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #FFFFFF;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 { width: 500px; height: 500px; bottom: -300px; right: -200px; }
+        .shape-2 { width: 300px; height: 300px; top: -100px; left: -150px; }
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            top: 200px;
+            right: 50px;
+            opacity: 0.05;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex items-center justify-center text-white p-10 md:p-12">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+
+        <div class="max-w-6xl w-full">
+            <h2 class="slide-title">Who am I?</h2>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-3/5">
+                    <h3 class="text-2xl font-semibold mb-6" style="color: #00CED1;">Experience</h3>
+                    <div class="space-y-5">
+                        <div class="content-card flex items-start">
+                            <div class="content-icon-wrapper">
+                                <i class="fas fa-code text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="timeline-year">2024</p>
+                                <p class="timeline-content">111퍼센트게임 클라이언트 개발자</p>
+                            </div>
+                        </div>
+
+                        <div class="content-card flex items-start">
+                            <div class="content-icon-wrapper">
+                                <i class="fas fa-briefcase text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="timeline-year">2023</p>
+                                <p class="timeline-content">개인사업 1인 대표</p>
+                            </div>
+                        </div>
+
+                        <div class="content-card flex items-start">
+                            <div class="content-icon-wrapper">
+                                <i class="fas fa-flask text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="timeline-year">2022</p>
+                                <p class="timeline-content">그래픽스 연구실 학부 연구생</p>
+                            </div>
+                        </div>
+
+                        <div class="content-card flex items-start">
+                            <div class="content-icon-wrapper">
+                                <i class="fas fa-palette text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="timeline-year">2022</p>
+                                <p class="timeline-content">(주)디지인 모션 그래픽 디자이너</p>
+                            </div>
+                        </div>
+
+                        <div class="content-card flex items-start">
+                            <div class="content-icon-wrapper">
+                                <i class="fas fa-lightbulb text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="timeline-year">2019</p>
+                                <p class="timeline-content">(주)에디콘 게임 기획</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-2/5">
+                    <div class="profile-section h-full flex flex-col justify-center items-center text-center p-6 md:p-8">
+                        <div class="w-36 h-36 bg-opacity-30 rounded-full flex items-center justify-center mb-6 shadow-xl border-2" style="background-color: rgba(0, 206, 209, 0.3); border-color: #00CED1;">
+                            <i class="fas fa-user-tie text-7xl" style="color: #00CED1;"></i>
+                        </div>
+                        <h1 class="text-4xl font-bold mb-2 text-white">소병욱</h1>
+                        <p class="text-xl font-medium mb-1" style="color: #00CED1;">Cloud Club 7기</p>
+                        <p class="text-lg italic mb-8" style="color: #B0B0B0;">"도메인이 참 잡다함"</p>
+
+                        <div class="w-full">
+                            <h4 class="text-xl font-semibold mb-4 pb-2 inline-block" style="color: #00CED1; border-bottom: 2px solid #00CED1;">Contact Me</h4>
+                            <ul class="space-y-3 text-lg">
+                                <li>
+                                    <a href="https://www.linkedin.com/in/cybecho/" target="_blank" class="contact-link">
+                                        <i class="fab fa-linkedin mr-3 w-6 text-center"></i> LinkedIn
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/Cybecho" target="_blank" class="contact-link">
+                                        <i class="fab fa-github mr-3 w-6 text-center"></i> GitHub
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="mailto:cybecho.proxy@gmail.com" class="contact-link">
+                                        <i class="fas fa-envelope mr-3 w-6 text-center"></i> cybecho.proxy@gmail.com
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

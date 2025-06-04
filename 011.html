@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>활용법 예시</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+        .usage-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .usage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .separator {
+            width: 40px;
+            height: 3px;
+            border-radius: 2px;
+            margin: 10px 0;
+            background-color: #00CED1;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-12" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h2 class="slide-title">활용법 예시</h2>
+        
+        <div class="mb-6">
+            <p class="text-lg" style="color: #E0E0E0;">
+                다양한 <span class="text-white font-semibold">Proxmox 활용 사례</span>로 홈서버의 가능성을 확장하세요
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-7 gap-4 flex-grow">
+            <!-- NAS -->
+            <div class="usage-card p-5 flex flex-col items-center text-center">
+                <div class="card-icon" style="background: rgba(0, 206, 209, 0.2); color: #00CED1;">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 class="text-white font-bold text-lg">개인 NAS 구축</h3>
+                <div class="separator"></div>
+                <p class="text-sm" style="color: #E0E0E0;">
+                    TrueNAS나 OpenMediaVault를 VM으로 설치하거나 ZFS 기능 활용하여 안정적인 파일 서버 구축
+                </p>
+            </div>
+            
+            <!-- 미디어 서버 -->
+            <div class="usage-card p-5 flex flex-col items-center text-center">
+                <div class="card-icon" style="background: rgba(255, 107, 107, 0.2); color: #FF6B6B;">
+                    <i class="fas fa-film"></i>
+                </div>
+                <h3 class="text-white font-bold text-lg">미디어 서버</h3>
+                <div class="separator" style="background-color: #FF6B6B;"></div>
+                <p class="text-sm" style="color: #E0E0E0;">
+                    Plex나 Jellyfin을 설치하여 집 안 어디서든 개인 미디어 라이브러리에 접근
+                </p>
+            </div>
+            
+            <!-- 스마트 홈 허브 -->
+            <div class="usage-card p-5 flex flex-col items-center text-center">
+                <div class="card-icon" style="background: rgba(0, 206, 209, 0.2); color: #00CED1;">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3 class="text-white font-bold text-lg">스마트 홈 허브</h3>
+                <div class="separator"></div>
+                <p class="text-sm" style="color: #E0E0E0;">
+                    Home Assistant로 스마트 기기들을 통합 제어하는 허브 구축
+                </p>
+            </div>
+            
+            <!-- 광고 차단 -->
+            <div class="usage-card p-5 flex flex-col items-center text-center">
+                <div class="card-icon" style="background: rgba(255, 215, 0, 0.2); color: #FFD700;">
+                    <i class="fas fa-ban"></i>
+                </div>
+                <h3 class="text-white font-bold text-lg">광고 차단</h3>
+                <div class="separator" style="background-color: #FFD700;"></div>
+                <p class="text-sm" style="color: #E0E0E0;">
+                    Pi-hole과 같은 DNS 기반 광고 차단 소프트웨어로 네트워크 전체 광고 차단
+                </p>
+            </div>
+            
+            <!-- 개발 샌드박스 -->
+            <div class="usage-card p-5 flex flex-col items-center text-center">
+                <div class="card-icon" style="background: rgba(255, 165, 0, 0.2); color: #FFA500;">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="text-white font-bold text-lg">개발 샌드박스</h3>
+                <div class="separator" style="background-color: #FFA500;"></div>
+                <p class="text-sm" style="color: #E0E0E0;">
+                    OS 테스트와 개발 환경을 안전하게 실험할 수 있는 격리된 환경 제공
+                </p>
+            </div>
+            
+            <!-- 네트워크 실험실 -->
+            <div class="usage-card p-5 flex flex-col items-center text-center">
+                <div class="card-icon" style="background: rgba(0, 206, 209, 0.2); color: #00CED1;">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3 class="text-white font-bold text-lg">네트워크 랩</h3>
+                <div class="separator"></div>
+                <p class="text-sm" style="color: #E0E0E0;">
+                    가상 네트워크 토폴로지 구성, 방화벽 테스트, 라우팅 프로토콜 학습
+                </p>
+            </div>
+            
+            <!-- GPU 서버 -->
+            <div class="usage-card p-5 flex flex-col items-center text-center">
+                <div class="card-icon" style="background: rgba(64, 224, 208, 0.2); color: #40E0D0;">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3 class="text-white font-bold text-lg">GPU 서버</h3>
+                <div class="separator" style="background-color: #40E0D0;"></div>
+                <p class="text-sm" style="color: #E0E0E0;">
+                    AI 모델 실행, Ollama 설치로 Llama 3.1 등의 언어 모델을 로컬에서 구동
+                </p>
+            </div>
+        </div>
+        
+        <div class="mt-6 py-4 px-6 rounded-xl border" style="background-color: rgba(0, 206, 209, 0.1); border-color: rgba(0, 206, 209, 0.3);">
+            <p class="text-center" style="color: #E0E0E0;">
+                <i class="fas fa-lightbulb mr-2" style="color: #FFD700;"></i>
+                각 사용 사례는 <span class="text-white font-medium">VM(Virtual Machine)</span>이나 
+                <span class="text-white font-medium">LXC(Linux Container)</span>로 구현하여 하나의 서버에서 동시에 운영 가능합니다!
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다른 가상화 플랫폼과의 비교</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden !important; /* 스크롤 기능 완전히 제거 */
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px; /* 콘텐츠가 이 높이를 넘어가도 스크롤바가 생기지 않도록 body에서 제어 */
+            height: auto;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden !important; /* 내부 스크롤도 방지 (필요시) */
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            top: 0;
+            left: 0;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+        .comparison-table {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden; /* 내부 테이블 스크롤 방지 */
+        }
+        .table-header {
+            background: rgba(0, 206, 209, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .table-row:not(:last-child) {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .table-row:hover {
+            background: rgba(0, 206, 209, 0.1);
+        }
+        .feature-tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            line-height: 1rem;
+            font-weight: 500;
+            margin: 2px;
+        }
+        .feature-free {
+            background-color: rgba(0, 206, 209, 0.2);
+            color: #00CED1;
+            border: 1px solid rgba(0, 206, 209, 0.3);
+        }
+        .feature-paid {
+            background-color: rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        .highlight-cell {
+            position: relative;
+        }
+        .highlight-cell::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 206, 209, 0.05);
+            z-index: -1;
+        }
+        /* 모든 스크롤바 관련 스타일은 완전히 제거되었습니다. */
+    </style>
+</head>
+<body>
+    <div class="slide-container p-12" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h2 class="slide-title">다른 가상화 플랫폼과의 비교</h2>
+        
+        <div class="mb-6">
+            <p class="text-lg" style="color: #E0E0E0;">
+                <span class="text-white font-semibold">Proxmox VE</span>는 VMware ESXi나 Microsoft Hyper-V 같은 <span class="text-white font-semibold">유료 프로그램들을 대체</span>할 수 있는 강력하고 유연한 오픈소스 가상화 플랫폼입니다.
+            </p>
+        </div>
+        
+        <div class="comparison-table mb-6 flex-grow">
+            <div class="table-header grid grid-cols-5 text-center py-3 sticky top-0 z-10">
+                <div class="text-white font-bold px-2">구분</div>
+                <div class="text-white font-bold highlight-cell px-2">Proxmox VE</div>
+                <div class="text-white font-bold px-2">VMware ESXi</div>
+                <div class="text-white font-bold px-2">Microsoft Hyper-V</div>
+                <div class="text-white font-bold px-2">Citrix Hypervisor / Xen</div>
+            </div>
+            
+            <div class="table-row grid grid-cols-5 text-center py-3 items-stretch">
+                <div class="px-2 flex items-center justify-center" style="color: #E0E0E0;"><span class="font-medium">기본 기능</span></div>
+                <div class="px-2 py-2 highlight-cell" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-free">가상 컴퓨터 생성</span>
+                        <span class="feature-tag feature-free">컨테이너 실행 (LXC)</span>
+                        <span class="feature-tag feature-free">웹 기반 관리</span>
+                        <span class="feature-tag feature-free">기본 백업/복원</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-free">가상 컴퓨터 생성</span>
+                        <span class="feature-tag feature-free">기본 관리 기능 (vSphere Client)</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-free">가상 컴퓨터 생성</span>
+                        <span class="feature-tag feature-free">관리 도구 (Hyper-V 관리자)</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-free">가상 컴퓨터 생성 (Xen 기반)</span>
+                        <span class="feature-tag feature-free">관리 도구 (XenCenter)</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="table-row grid grid-cols-5 text-center py-3 items-stretch">
+                <div class="px-2 flex items-center justify-center" style="color: #E0E0E0;"><span class="font-medium">추가 기능</span></div>
+                <div class="px-2 py-2 highlight-cell" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-free">클러스터링</span>
+                        <span class="feature-tag feature-free">고가용성 (HA)</span>
+                        <span class="feature-tag feature-free">라이브 마이그레이션</span>
+                        <span class="feature-tag feature-free">통합 스토리지 (Ceph, ZFS)</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-paid">vMotion (마이그레이션)</span>
+                        <span class="feature-tag feature-paid">High Availability (HA)</span>
+                        <span class="feature-tag feature-paid">DRS (자원 스케줄링)</span>
+                        <span class="feature-tag feature-paid">vSAN (통합 스토리지)</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-free">Failover Clustering</span>
+                        <span class="feature-tag feature-free">Live Migration</span>
+                        <span class="feature-tag feature-paid">SCVMM (고급 관리)</span>
+                        <span class="feature-tag feature-paid">Storage Spaces Direct</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-paid">XenMotion (마이그레이션)</span>
+                        <span class="feature-tag feature-paid">High Availability</span>
+                        <span class="feature-tag feature-paid">GPU 가상화 (vGPU)</span>
+                        <span class="feature-tag feature-paid">워크로드 밸런싱</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="table-row grid grid-cols-5 text-center py-3 items-stretch">
+                <div class="px-2 flex items-center justify-center" style="color: #E0E0E0;"><span class="font-medium">추가 기능 비용</span></div>
+                <div class="px-2 py-2 highlight-cell" style="color: #E0E0E0;">
+                    <div class="flex items-center justify-center h-full">
+                        <span class="font-bold" style="color: #00CED1;">모든 기능 무료</span>
+                        <i class="fas fa-check-circle ml-2" style="color: #00CED1;"></i>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex items-center justify-center h-full">
+                        <span class="font-semibold" style="color: #FFD700;">주요 기능 유료</span>
+                        <i class="fas fa-dollar-sign ml-2" style="color: #FFD700;"></i>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex items-center justify-center h-full">
+                        <span class="font-semibold" style="color: #FFD700;">고급 기능/관리 유료</span>
+                        <i class="fas fa-dollar-sign ml-2" style="color: #FFD700;"></i>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex items-center justify-center h-full">
+                        <span class="font-semibold" style="color: #FFD700;">상용 버전 유료</span>
+                        <i class="fas fa-dollar-sign ml-2" style="color: #FFD700;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-row grid grid-cols-5 text-center py-3 items-stretch">
+                <div class="px-2 flex items-center justify-center" style="color: #E0E0E0;"><span class="font-medium">라이선스</span></div>
+                <div class="px-2 py-2 highlight-cell" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-free">오픈소스 (AGPLv3)</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-paid">독점</span>
+                        <span class="text-xs" style="color: #B0B0B0;">(무료 ESXi 기능 제한)</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-paid">독점</span>
+                         <span class="text-xs" style="color: #B0B0B0;">(Windows Server 에디션별 정책)</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-free">Xen: 오픈소스</span>
+                        <span class="feature-tag feature-paid">Citrix Hypervisor: 상용</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-row grid grid-cols-5 text-center py-3 items-stretch">
+                <div class="px-2 flex items-center justify-center" style="color: #E0E0E0;"><span class="font-medium">기술 지원</span></div>
+                <div class="px-2 py-2 highlight-cell" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-free">커뮤니티 포럼</span>
+                        <span class="feature-tag feature-paid">기업용 유료 구독</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-paid">유료 기술 지원 계약</span>
+                        <span class="text-xs" style="color: #B0B0B0;">(라이선스 구독 기반)</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-paid">Microsoft 유료 지원</span>
+                         <span class="text-xs" style="color: #B0B0B0;">(OS 지원 계약 연동)</span>
+                    </div>
+                </div>
+                <div class="px-2 py-2" style="color: #E0E0E0;">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="feature-tag feature-free">Xen Project: 커뮤니티</span>
+                        <span class="feature-tag feature-paid">Citrix: 유료 기술 지원</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+</body>
+</html>

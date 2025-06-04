@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인적인 활용방법</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+        .custom-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        .custom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .card-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .highlight-text {
+            color: #FFD700;
+            font-weight: 600;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        .feature-card {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-3px);
+        }
+        .feature-icon {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background: linear-gradient(45deg, #00CED1, #40E0D0);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .journey-line {
+            height: 90%;
+            width: 3px;
+            background: linear-gradient(to bottom, #00CED1, #40E0D0);
+            position: absolute;
+            left: 19px;
+            top: 5%;
+            border-radius: 3px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-8" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h2 class="slide-title">개인적인 활용방법</h2>
+        
+        <!-- Main Content -->
+        <div class="flex flex-row gap-6">
+            <!-- Build Background -->
+            <div class="custom-card p-6 w-1/3">
+                <div class="card-header flex items-center">
+                    <i class="fas fa-lightbulb text-2xl mr-3 float-animation" style="color: #FFD700;"></i>
+                    <h3 class="text-white font-bold text-lg">구축 배경</h3>
+                </div>
+                
+                <div class="relative text-sm mt-4 pl-10" style="color: #E0E0E0;">
+                    <div class="journey-line"></div>
+                    
+                    <div class="relative z-10 mb-6 ml-4">
+                        <div class="rounded-lg p-4 border" style="background: rgba(0, 206, 209, 0.4); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="absolute -left-14 rounded-full w-8 h-8 flex items-center justify-center" style="background: linear-gradient(to right, #00CED1, #40E0D0);">
+                                <i class="fas fa-hourglass-half text-white"></i>
+                            </div>
+                            <p>학교를 오가는 <span class="highlight-text">시간이 아까워</span> 집에서 원격으로 작업할 환경 구축 필요</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative z-10 mb-6 ml-4">
+                        <div class="rounded-lg p-4 border" style="background: rgba(0, 206, 209, 0.4); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="absolute -left-14 rounded-full w-8 h-8 flex items-center justify-center" style="background: linear-gradient(to right, #00CED1, #40E0D0);">
+                                <i class="fas fa-laptop-code text-white"></i>
+                            </div>
+                            <p>게임 엔진 작업을 위한 <span class="highlight-text">무거운 노트북</span>을 매번 들고 다니기 불편</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative z-10 mb-6 ml-4">
+                        <div class="rounded-lg p-4 border" style="background: rgba(0, 206, 209, 0.4); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="absolute -left-14 rounded-full w-8 h-8 flex items-center justify-center" style="background: linear-gradient(to right, #00CED1, #40E0D0);">
+                                <i class="fas fa-desktop text-white"></i>
+                            </div>
+                            <p>집에 <span class="highlight-text">남는 컴퓨터</span>가 있어 원격 컴퓨팅 시스템으로 활용 가능</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative z-10 mb-6 ml-4">
+                        <div class="rounded-lg p-4 border" style="background: rgba(0, 206, 209, 0.4); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="absolute -left-14 rounded-full w-8 h-8 flex items-center justify-center" style="background: linear-gradient(to right, #8B5CF6, #A78BFA);">
+                                <i class="fas fa-search text-white"></i>
+                            </div>
+                            <p>윈도우 서버, FTP, NAS 기능을 함께 사용하기 위한 솔루션 탐색 중 <span class="highlight-text">Proxmox</span> 발견</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Usage Methods -->
+            <div class="w-2/3">
+                <div class="custom-card p-6 h-full">
+                    <div class="card-header flex items-center">
+                        <i class="fas fa-rocket text-2xl mr-3 float-animation" style="color: #00CED1;"></i>
+                        <h3 class="text-white font-bold text-lg">활용 방법</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-4">
+                        <!-- Windows Server -->
+                        <div class="feature-card rounded-lg p-4 border" style="background: rgba(0, 206, 209, 0.3); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="feature-icon">
+                                <i class="fab fa-windows text-white"></i>
+                            </div>
+                            <h4 class="text-white font-medium ml-4 mb-2">윈도우 서버</h4>
+                            <p class="text-sm" style="color: #E0E0E0;">
+                                언제든 강의 무제한 시청 및<br>
+                                <span class="highlight-text">원격 데스크톱</span>으로 컴퓨팅 파워 활용
+                            </p>
+                        </div>
+                        
+                        <!-- Mobility -->
+                        <div class="feature-card rounded-lg p-4 border" style="background: rgba(0, 206, 209, 0.3); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="feature-icon">
+                                <i class="fas fa-tablet-alt text-white"></i>
+                            </div>
+                            <h4 class="text-white font-medium ml-4 mb-2">이동성 향상</h4>
+                            <p class="text-sm" style="color: #E0E0E0;">
+                                VM을 켜두고 가벼운 노트북/태블릿만으로<br>
+                                <span class="highlight-text">무거운 작업 가능</span> 및 원격 게이밍
+                            </p>
+                        </div>
+                        
+                        <!-- NAS -->
+                        <div class="feature-card rounded-lg p-4 border" style="background: rgba(0, 206, 209, 0.3); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="feature-icon">
+                                <i class="fas fa-database text-white"></i>
+                            </div>
+                            <h4 class="text-white font-medium ml-4 mb-2">NAS 구축</h4>
+                            <p class="text-sm" style="color: #E0E0E0;">
+                                개인 자료 저장 및 관리용<br>
+                                <span class="highlight-text">안전한 백업 시스템</span> 구축
+                            </p>
+                        </div>
+                        
+                        <!-- MacOS -->
+                        <div class="feature-card rounded-lg p-4 border" style="background: rgba(0, 206, 209, 0.3); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="feature-icon">
+                                <i class="fab fa-apple text-white"></i>
+                            </div>
+                            <h4 class="text-white font-medium ml-4 mb-2">맥 OS 가상머신</h4>
+                            <p class="text-sm" style="color: #E0E0E0;">
+                                맥 관련 빌드 작업을 위한 환경 구성<br>
+                                <span class="highlight-text">패스스루 기능</span>으로 윈도우/맥 동시 사용
+                            </p>
+                        </div>
+                        
+                        <!-- Google Photos -->
+                        <div class="feature-card rounded-lg p-4 border" style="background: rgba(0, 206, 209, 0.3); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="feature-icon">
+                                <i class="fas fa-images text-white"></i>
+                            </div>
+                            <h4 class="text-white font-medium ml-4 mb-2">무제한 백업</h4>
+                            <p class="text-sm" style="color: #E0E0E0;">
+                                구글 픽셀 1의 무제한 구글 포토<br>
+                                프로모션 활용한 <span class="highlight-text">미디어 백업</span>
+                            </p>
+                        </div>
+                        
+                        <!-- Runtipi -->
+                        <div class="feature-card rounded-lg p-4 border" style="background: rgba(0, 206, 209, 0.3); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="feature-icon">
+                                <i class="fas fa-cubes text-white"></i>
+                            </div>
+                            <h4 class="text-white font-medium ml-4 mb-2">Runtipi 활용</h4>
+                            <p class="text-sm" style="color: #E0E0E0;">
+                                CodeServer, Excalidraw 등<br>
+                                다양한 <span class="highlight-text">셀프 호스팅 유틸리티</span> 앱스토어처럼 설치
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 text-center">
+                        <p class="italic" style="color: #E0E0E0;">
+                            "Proxmox + TailScale 조합은 참 많은 것을 가능하게 만들어준다"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

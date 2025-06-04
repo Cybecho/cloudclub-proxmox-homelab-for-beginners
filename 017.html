@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>간략한 설치 튜토리얼</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-y: auto;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            height: auto;
+            margin: 20px auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            top: 0;
+            left: 0;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+        .custom-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        .custom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .card-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .step-number {
+            background: linear-gradient(45deg, #00CED1, #40E0D0);
+            color: white;
+            border-radius: 9999px;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
+        }
+        .step-line {
+            width: 2px;
+            background: rgba(0, 206, 209, 0.3);
+            margin-left: calc(1rem - 1px);
+            flex-grow: 1;
+        }
+        .highlight-text {
+            color: #FFD700;
+            font-weight: 600;
+        }
+        .task-badge {
+            color: white;
+            border-radius: 9999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
+        .task-1-badge {
+            background: linear-gradient(45deg, #00CED1, #40E0D0);
+        }
+        .task-2-badge {
+            background: linear-gradient(45deg, #22C55E, #34D399);
+        }
+        .task-3-badge {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        body::-webkit-scrollbar-thumb {
+            background: rgba(0, 206, 209, 0.5);
+            border-radius: 10px;
+        }
+        body::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 206, 209, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-8" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h2 class="slide-title">간략한 설치 튜토리얼</h2>
+        
+        <div class="flex flex-row gap-6 flex-grow">
+            <div class="custom-card p-6 w-1/2 flex flex-col">
+                <div class="card-header flex items-center">
+                    <i class="fas fa-download text-2xl mr-3 float-animation" style="color: #00CED1;"></i>
+                    <h3 class="text-white font-bold text-lg">설치 순서</h3>
+                </div>
+                
+                <div class="space-y-3 text-sm mt-4 overflow-y-auto pr-2 flex-grow" style="color: #E0E0E0;">
+                    <div class="flex">
+                        <div class="flex flex-col items-center mr-4">
+                            <div class="step-number">1</div>
+                            <div class="step-line h-full"></div>
+                        </div>
+                        <div class="pt-1 pb-2">
+                            <h4 class="text-white font-medium">설치 파일 준비</h4>
+                            <p class="mt-1 text-xs">
+                                공식 웹사이트에서 <span class="highlight-text">Proxmox VE ISO 파일</span> 다운로드 후<br>
+                                Rufus 또는 Balena Etcher 등으로 부팅 USB 제작
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex">
+                        <div class="flex flex-col items-center mr-4">
+                            <div class="step-number">2</div>
+                            <div class="step-line h-full"></div>
+                        </div>
+                        <div class="pt-1 pb-2">
+                            <h4 class="text-white font-medium">설치 프로그램 부팅</h4>
+                            <p class="mt-1 text-xs">
+                                제작한 USB로 부팅 후 "Install Proxmox VE" 선택
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex">
+                        <div class="flex flex-col items-center mr-4">
+                            <div class="step-number">3</div>
+                            <div class="step-line h-full"></div>
+                        </div>
+                        <div class="pt-1 pb-2">
+                            <h4 class="text-white font-medium">라이선스 동의 (EULA)</h4>
+                            <p class="mt-1 text-xs">
+                                최종 사용자 라이선스 계약(EULA) 내용 확인 후 "I agree" 클릭
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex">
+                        <div class="flex flex-col items-center mr-4">
+                            <div class="step-number">4</div>
+                            <div class="step-line h-full"></div>
+                        </div>
+                        <div class="pt-1 pb-2">
+                            <h4 class="text-white font-medium">대상 하드디스크 선택</h4>
+                            <p class="mt-1 text-xs">
+                                Proxmox VE를 설치할 디스크 선택 (기존 데이터 삭제됨)<br>
+                                Options에서 파일 시스템 (<span class="highlight-text">ext4</span> 또는 고급 사용자는 <span class="highlight-text">ZFS</span>) 등 설정 가능
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex">
+                        <div class="flex flex-col items-center mr-4">
+                            <div class="step-number">5</div>
+                            <div class="step-line h-full"></div>
+                        </div>
+                        <div class="pt-1 pb-2">
+                            <h4 class="text-white font-medium">지역, 시간 및 키보드 설정</h4>
+                            <p class="mt-1 text-xs">
+                                국가, 시간대, 키보드 레이아웃 선택 (보통 자동 감지)
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex">
+                        <div class="flex flex-col items-center mr-4">
+                            <div class="step-number">6</div>
+                            <div class="step-line h-full"></div>
+                        </div>
+                        <div class="pt-1 pb-2">
+                            <h4 class="text-white font-medium">관리자 암호 및 이메일 설정</h4>
+                            <p class="mt-1 text-xs">
+                                <span class="highlight-text">root 계정의 암호</span>와 관리자 이메일 주소 입력
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex">
+                        <div class="flex flex-col items-center mr-4">
+                            <div class="step-number">7</div>
+                            <div class="step-line h-full"></div>
+                        </div>
+                        <div class="pt-1 pb-2">
+                            <h4 class="text-white font-medium">네트워크 구성</h4>
+                            <p class="mt-1 text-xs">
+                                관리 인터페이스, 호스트 이름(FQDN), <span class="highlight-text">IP 주소, 넷마스크, 게이트웨이, DNS 서버</span> 정보 입력
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex">
+                        <div class="flex flex-col items-center mr-4">
+                            <div class="step-number">8</div>
+                        </div>
+                        <div class="pt-1 pb-2">
+                            <h4 class="text-white font-medium">설치 진행 및 완료</h4>
+                            <p class="mt-1 text-xs">
+                                설정 요약 확인 후 "Install" 클릭 (수 분 소요)<br>
+                                설치 완료 후 자동 재부팅 (부팅 USB 제거)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col space-y-4 w-1/2">
+                <div class="custom-card p-6 flex flex-col">
+                    <div class="card-header flex items-center">
+                        <i class="fas fa-tasks text-2xl mr-3 float-animation" style="color: #8B5CF6; animation-delay: 0.2s;"></i>
+                        <h3 class="text-white font-bold text-lg">설치 후 주요 작업</h3>
+                    </div>
+                    
+                    <div class="overflow-y-auto pr-2 flex-grow">
+                        <div class="rounded-lg p-3 my-3 border" style="background: rgba(0, 206, 209, 0.3); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center mr-3 shadow-md" style="background: linear-gradient(to bottom right, #00CED1, #40E0D0);">
+                                    <span class="font-bold text-white">1</span>
+                                </div>
+                                <div>
+                                    <span class="task-badge task-1-badge">웹 인터페이스 접속</span>
+                                    <p class="mt-1 text-xs" style="color: #E0E0E0;">
+                                        웹 브라우저에서 <code class="text-xs px-1 rounded" style="color: #FFD700; background: rgba(0,0,0,0.2);">https://[Proxmox_IP]:8006</code> 입력<br>
+                                        사용자명: <code class="text-xs px-1 rounded" style="color: #FFD700; background: rgba(0,0,0,0.2);">root</code>, 암호: 설치 시 설정한 암호<br>
+                                        (주의: <span class="highlight-text">HTTPS</span> 연결, 자체 서명 인증서 경고 수락)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rounded-lg p-3 my-3 border" style="background: rgba(0, 206, 209, 0.3); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center mr-3 shadow-md" style="background: linear-gradient(to bottom right, #22C55E, #34D399);">
+                                    <span class="font-bold text-white">2</span>
+                                </div>
+                                <div>
+                                    <span class="task-badge task-2-badge">업데이트 저장소 설정</span>
+                                    <p class="mt-1 text-xs" style="color: #E0E0E0;">
+                                        <span class="highlight-text">Datacenter > 노드 선택 > Updates > Repositories</span> 이동<br>
+                                        유료 구독용 'enterprise' 저장소는 Disable, <br>
+                                        무료용 '<span class="highlight-text">No-Subscription</span>' 저장소는 Enable<br>
+                                        <code class="text-xs px-1 rounded" style="background: rgba(0,0,0,0.2);">Datacenter > 노드 선택 > Updates > Refresh</code> 후 <code class="text-xs px-1 rounded" style="background: rgba(0,0,0,0.2);">Upgrade</code> 실행
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rounded-lg p-3 my-3 border" style="background: rgba(0, 206, 209, 0.3); border-color: rgba(0, 206, 209, 0.7);">
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center mr-3 shadow-md" style="background: linear-gradient(to bottom right, #FFD700, #FFA500);">
+                                    <span class="font-bold text-white">3</span>
+                                </div>
+                                <div>
+                                    <span class="task-badge task-3-badge">첫 VM 생성 준비 (ISO 업로드)</span>
+                                    <p class="mt-1 text-xs" style="color: #E0E0E0;">
+                                        <span class="highlight-text">Datacenter > 노드 선택 > ISO Images</span> (local 스토리지) 선택<br>
+                                        'Upload' 버튼으로 OS 설치용 ISO 이미지 파일 업로드<br>
+                                        (예: Ubuntu, Windows Server ISO 파일)
+                                    </p>
+                                    <p class="mt-2 text-xs italic" style="color: #E0E0E0;">
+                                        * 이후 우측 상단 'Create VM' 버튼으로 가상머신 생성 진행
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="custom-card p-4 mt-4">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3 shadow-lg" style="background: linear-gradient(to right, #8B5CF6, #6366F1);">
+                            <i class="fas fa-lightbulb text-xl" style="color: #FFD700;"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-white font-semibold text-base">Proxmox VE 설치 팁</h4>
+                            <ul class="text-xs mt-1 list-disc list-inside space-y-1" style="color: #E0E0E0;">
+                                <li>설치 전 <span class="highlight-text">서버 하드웨어 호환성</span>을 Proxmox 커뮤니티에서 확인하세요.</li>
+                                <li>네트워크 설정 시 <span class="highlight-text">고정 IP 사용</span>을 권장합니다.</li>
+                                <li>설치 후 <span class="highlight-text">시스템 시간 동기화(NTP)</span> 설정을 확인하세요.</li>
+                                <li>문제 발생 시 <a href="https://forum.proxmox.com" target="_blank" style="color: #00CED1;" class="hover:underline">공식 커뮤니티 포럼</a>이 유용합니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

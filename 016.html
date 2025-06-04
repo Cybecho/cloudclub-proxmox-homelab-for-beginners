@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그 외 고려사항</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+        .custom-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        .custom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .card-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .category-badge {
+            background: linear-gradient(45deg, #00CED1, #40E0D0);
+            color: white;
+            border-radius: 9999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
+        .network-badge {
+            background: linear-gradient(45deg, #6366F1, #818CF8);
+        }
+        .power-badge {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+        }
+        .cooling-badge {
+            background: linear-gradient(45deg, #22C55E, #34D399);
+        }
+        .system-badge {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+        }
+        .misc-badge {
+            background: linear-gradient(45deg, #8B5CF6, #A78BFA);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        .highlight-text {
+            color: #FFD700;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-8" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h2 class="slide-title">그 외 고려사항</h2>
+        
+        <!-- Main Grid Layout -->
+        <div class="grid grid-cols-3 gap-4 mb-4">
+            <!-- Network Section -->
+            <div class="custom-card p-4 flex flex-col">
+                <div class="card-header flex items-center">
+                    <i class="fas fa-network-wired text-2xl mr-3 float-animation" style="color: #6366F1;"></i>
+                    <h3 class="text-white font-bold text-lg">네트워크 관련</h3>
+                </div>
+                
+                <div class="space-y-3 text-sm" style="color: #E0E0E0;">
+                    <div>
+                        <span class="category-badge network-badge">물리 라우터</span>
+                        <p class="ml-1 mt-1">ip route 설정 및 효율적인 네트워크 라우팅</p>
+                    </div>
+                    <div>
+                        <span class="category-badge network-badge">물리 방화벽</span>
+                        <p class="ml-1 mt-1">pfsense, iptables를 통한 보안 설정</p>
+                    </div>
+                    <div>
+                        <span class="category-badge network-badge">멀티 NIC</span>
+                        <p class="ml-1 mt-1">관리/데이터/백업 네트워크 분리로 <span class="highlight-text">성능과 안정성 향상</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Virtualization Section -->
+            <div class="custom-card p-4 flex flex-col">
+                <div class="card-header flex items-center">
+                    <i class="fas fa-layer-group text-2xl mr-3 float-animation" style="color: #8B5CF6;"></i>
+                    <h3 class="text-white font-bold text-lg">가상화 요소</h3>
+                </div>
+                
+                <div class="space-y-3 text-sm" style="color: #E0E0E0;">
+                    <div>
+                        <span class="category-badge misc-badge">Passthrough</span>
+                        <p class="ml-1 mt-1">vCPU, vGPU와 차이점 - <span class="highlight-text">직접 하드웨어 접근</span></p>
+                    </div>
+                    <div>
+                        <span class="category-badge misc-badge">KVM</span>
+                        <p class="ml-1 mt-1">커널 기반 가상 머신의 특징과 최적화</p>
+                    </div>
+                    <div>
+                        <span class="category-badge misc-badge">PCIe 레인</span>
+                        <p class="ml-1 mt-1">할당과 대역폭 - 장치 간 <span class="highlight-text">리소스 경합 방지</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Power Section -->
+            <div class="custom-card p-4 flex flex-col">
+                <div class="card-header flex items-center">
+                    <i class="fas fa-bolt text-2xl mr-3 float-animation" style="color: #FFD700;"></i>
+                    <h3 class="text-white font-bold text-lg">전원 관리</h3>
+                </div>
+                
+                <div class="space-y-3 text-sm" style="color: #E0E0E0;">
+                    <div>
+                        <span class="category-badge power-badge">UPS</span>
+                        <p class="ml-1 mt-1">무정전 전원 공급으로 <span class="highlight-text">데이터 보호</span> 및 안정성 확보</p>
+                    </div>
+                    <div>
+                        <span class="category-badge power-badge">전원 공급 장치 (PSU)</span>
+                        <p class="ml-1 mt-1">80 PLUS 인증 등급 및 <span class="highlight-text">충분한 용량</span> 확보</p>
+                    </div>
+                    <div>
+                        <span class="category-badge power-badge">모듈러 설계</span>
+                        <p class="ml-1 mt-1">케이블 정리와 공기 흐름 개선</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cooling & Case Section -->
+            <div class="custom-card p-4 flex flex-col">
+                <div class="card-header flex items-center">
+                    <i class="fas fa-wind text-2xl mr-3 float-animation" style="color: #22C55E;"></i>
+                    <h3 class="text-white font-bold text-lg">냉각 & 케이스</h3>
+                </div>
+                
+                <div class="space-y-3 text-sm" style="color: #E0E0E0;">
+                    <div>
+                        <span class="category-badge cooling-badge">쿨링 시스템</span>
+                        <p class="ml-1 mt-1">CPU/시스템 냉각으로 <span class="highlight-text">24시간 안정적 운영</span> 지원</p>
+                    </div>
+                    <div>
+                        <span class="category-badge cooling-badge">케이스 선택</span>
+                        <p class="ml-1 mt-1">확장성, 공기 흐름, 드라이브 베이 수 고려</p>
+                    </div>
+                    <div>
+                        <span class="category-badge cooling-badge">소음 관리</span>
+                        <p class="ml-1 mt-1">저소음 팬, 방진 설계로 <span class="highlight-text">생활공간 적합성</span> 확보</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BIOS/UEFI Section -->
+            <div class="custom-card p-4 flex flex-col">
+                <div class="card-header flex items-center">
+                    <i class="fas fa-microchip text-2xl mr-3 float-animation" style="color: #FF6B6B;"></i>
+                    <h3 class="text-white font-bold text-lg">BIOS/UEFI 설정</h3>
+                </div>
+                
+                <div class="space-y-3 text-sm" style="color: #E0E0E0;">
+                    <div>
+                        <span class="category-badge system-badge">가상화 옵션</span>
+                        <p class="ml-1 mt-1">CPU 가상화(VT-x/AMD-V) 및 <span class="highlight-text">IOMMU 그룹화</span> 활성화</p>
+                    </div>
+                    <div>
+                        <span class="category-badge system-badge">보안 부팅</span>
+                        <p class="ml-1 mt-1">필요에 따라 비활성화 (호환성 문제 해결)</p>
+                    </div>
+                    <div>
+                        <span class="category-badge system-badge">PCIe 레인 분할</span>
+                        <p class="ml-1 mt-1">Bifurcation 설정을 통한 <span class="highlight-text">확장 카드 활용</span> 최적화</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Considerations -->
+            <div class="custom-card p-4 flex flex-col">
+                <div class="card-header flex items-center">
+                    <i class="fas fa-server text-2xl mr-3 float-animation" style="color: #00CED1;"></i>
+                    <h3 class="text-white font-bold text-lg">추가 고려사항</h3>
+                </div>
+                
+                <div class="space-y-3 text-sm" style="color: #E0E0E0;">
+                    <div>
+                        <span class="category-badge">원격 관리</span>
+                        <p class="ml-1 mt-1">IPMI, iDRAC, iLO 등 <span class="highlight-text">원격 서버 관리 인터페이스</span></p>
+                    </div>
+                    <div>
+                        <span class="category-badge">케이블링</span>
+                        <p class="ml-1 mt-1">내부 케이블 정리 및 적절한 네트워크 케이블 규격 선택</p>
+                    </div>
+                    <div>
+                        <span class="category-badge">스토리지 기술</span>
+                        <p class="ml-1 mt-1">SAS, RAID 컨트롤러, ZFS/Ceph 고급 설정</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Tips -->
+        <div class="rounded-lg p-4 border" style="background: rgba(43, 43, 43, 0.3); border-color: rgba(0, 206, 209, 0.7);">
+            <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(to right, #8B5CF6, #6366F1);">
+                    <i class="fas fa-lightbulb text-xl" style="color: #FFD700;"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="text-white font-medium text-lg mb-1">하드웨어 체크리스트 접근법</h4>
+                    <p class="text-sm" style="color: #E0E0E0;">
+                        모든 요소를 한 번에 갖출 필요는 없습니다. <span class="highlight-text">TS(Troubleshooting) 능력</span>을 기르며 
+                        대범주, 중범주, 소범주로 문제를 나누어 접근하세요.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

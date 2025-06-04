@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>잠자는 PC의 변신: 홈서버 구축, 어렵지 않아요!</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 2rem;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 120px;
+            height: 6px;
+            background: linear-gradient(90deg, #00CED1 0%, #40E0D0 100%);
+            border-radius: 3px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.05);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+            animation: float1 8s ease-in-out infinite;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+            animation: float2 6s ease-in-out infinite;
+        }
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            top: 30%;
+            right: 20%;
+            animation: float3 10s ease-in-out infinite;
+        }
+        @keyframes float1 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(-180deg); }
+        }
+        @keyframes float3 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(90deg); }
+        }
+        .question-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .question-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00CED1, #40E0D0);
+        }
+        .question-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .sleeping-pc {
+            background: linear-gradient(135deg, #6B7280 0%, #9CA3AF 100%);
+            color: #4B5563;
+        }
+        .high-performance {
+            background: linear-gradient(135deg, #00CED1 0%, #40E0D0 100%);
+            color: #fff;
+        }
+        .highlight-text {
+            color: #FFD700;
+            font-weight: 700;
+        }
+        .emphasis-text {
+            color: #00CED1;
+            font-weight: 600;
+        }
+        .call-to-action {
+            background: linear-gradient(135deg, rgba(0, 206, 209, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+            border: 2px solid rgba(0, 206, 209, 0.5);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: glow 3s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 206, 209, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 206, 209, 0.6); }
+        }
+        .call-to-action::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 4s ease-in-out infinite;
+        }
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .sub-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFD700;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .bullet-point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            transition: transform 0.2s ease;
+        }
+        .bullet-point:hover {
+            transform: translateX(8px);
+        }
+        .bullet-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00CED1;
+            margin-right: 12px;
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-12" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        
+        <h1 class="slide-title">잠자는 PC의 변신:<br>홈서버 구축, 어렵지 않아요!</h1>
+        
+        <!-- 혹시... 섹션 -->
+        <div class="mb-8">
+            <h2 class="sub-title">혹시…</h2>
+            
+            <div class="grid grid-cols-2 gap-8 mb-8">
+                <!-- 잠자는 PC -->
+                <div class="question-card p-6">
+                    <div class="question-icon sleeping-pc">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-xl text-center mb-4">집에 잠자는 PC, 없으신가요?</h3>
+                    <div class="space-y-3" style="color: #E0E0E0;">
+                        <div class="bullet-point">
+                            <div class="bullet-icon"></div>
+                            <span>먼지 쌓인 구형 컴퓨터</span>
+                        </div>
+                        <div class="bullet-point">
+                            <div class="bullet-icon"></div>
+                            <span>남는 부품들</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 고성능 PC -->
+                <div class="question-card p-6">
+                    <div class="question-icon high-performance">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-xl text-center mb-4">고성능 PC, 웹 서핑에만 쓰시나요?</h3>
+                    <div class="space-y-3" style="color: #E0E0E0;">
+                        <div class="bullet-point">
+                            <div class="bullet-icon"></div>
+                            <span>넘치는 컴퓨팅 파워</span>
+                        </div>
+                        <div class="bullet-point">
+                            <div class="bullet-icon"></div>
+                            <span>제대로 활용하고 계신가요?</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 강조 메시지 -->
+        <div class="question-card p-6 mb-8">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4" style="color: #FFFFFF;">
+                    그 방치된 성능, <span class="highlight-text">그냥 두기엔 아깝지 않으세요?</span>
+                </h3>
+                <div class="flex justify-center items-center space-x-4">
+                    <i class="fas fa-desktop text-4xl" style="color: #6B7280;"></i>
+                    <i class="fas fa-arrow-right text-2xl" style="color: #00CED1;"></i>
+                    <i class="fas fa-server text-4xl" style="color: #00CED1;"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="call-to-action">
+            <div class="relative z-10">
+                <h2 class="text-3xl font-bold mb-4" style="color: #FFFFFF;">
+                    남는 컴퓨터로 <span class="emphasis-text">"나만의 홈서버"</span>를 만들어보면 어떨까요?
+                </h2>
+                <div class="flex justify-center items-center space-x-6 mt-6">
+                    <div class="text-center">
+                        <i class="fas fa-home text-3xl mb-2" style="color: #00CED1;"></i>
+                        <p class="text-sm font-medium" style="color: #E0E0E0;">개인 클라우드</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-database text-3xl mb-2" style="color: #FFD700;"></i>
+                        <p class="text-sm font-medium" style="color: #E0E0E0;">파일 저장소</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-film text-3xl mb-2" style="color: #FF6B6B;"></i>
+                        <p class="text-sm font-medium" style="color: #E0E0E0;">미디어 서버</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-code text-3xl mb-2" style="color: #22C55E;"></i>
+                        <p class="text-sm font-medium" style="color: #E0E0E0;">개발 환경</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

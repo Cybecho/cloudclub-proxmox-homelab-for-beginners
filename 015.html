@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>권장 사양</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+        .custom-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        .custom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .card-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .spec-badge {
+            background: linear-gradient(45deg, #00CED1, #40E0D0);
+            color: white;
+            border-radius: 9999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
+        .critical-badge {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+        }
+        .recommended-badge {
+            background: linear-gradient(45deg, #22C55E, #34D399);
+        }
+        .optional-badge {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        .highlight-text {
+            color: #FFD700;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-8" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h2 class="slide-title">권장 사양</h2>
+        
+        <!-- Hardware Components Grid -->
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <!-- CPU Section -->
+            <div class="custom-card p-4 flex flex-col h-full">
+                <div class="card-header flex items-center">
+                    <i class="fas fa-microchip text-2xl mr-3 float-animation" style="color: #00CED1;"></i>
+                    <h3 class="text-white font-bold text-lg">CPU (중앙 처리 장치)</h3>
+                </div>
+                
+                <div class="space-y-3 text-sm flex-grow" style="color: #E0E0E0;">
+                    <div>
+                        <span class="spec-badge critical-badge">필수</span>
+                        <p class="ml-1 mt-1">64비트 CPU (Intel EMT64 또는 AMD64)</p>
+                    </div>
+                    <div>
+                        <span class="spec-badge critical-badge">필수</span>
+                        <p class="ml-1 mt-1">가상화 지원 <span class="highlight-text">(Intel VT/AMD-V)</span> 및 BIOS에서 활성화</p>
+                    </div>
+                    <div>
+                        <span class="spec-badge recommended-badge">권장</span>
+                        <p class="ml-1 mt-1">최소 4코어 (8코어 이상 권장) - <span class="highlight-text">다중 코어 성능이 중요</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RAM Section -->
+            <div class="custom-card p-4 flex flex-col h-full">
+                <div class="card-header flex items-center">
+                    <i class="fas fa-memory text-2xl mr-3 float-animation" style="color: #22C55E;"></i>
+                    <h3 class="text-white font-bold text-lg">RAM (메모리)</h3>
+                </div>
+                
+                <div class="space-y-3 text-sm flex-grow" style="color: #E0E0E0;">
+                    <div>
+                        <span class="spec-badge critical-badge">최소</span>
+                        <p class="ml-1 mt-1">호스트용 2GB + VM/컨테이너용 추가 메모리</p>
+                    </div>
+                    <div>
+                        <span class="spec-badge recommended-badge">권장</span>
+                        <p class="ml-1 mt-1">여러 VM/NAS 운영 시 <span class="highlight-text">최소 16GB, 32GB 이상 권장</span></p>
+                    </div>
+                    <div>
+                        <span class="spec-badge critical-badge">ZFS 사용 시</span>
+                        <p class="ml-1 mt-1">ZFS는 <span class="highlight-text">ECC RAM</span> 권장 및 스토리지 1TB당 약 1GB 메모리 필요</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Storage Section -->
+            <div class="custom-card p-4 flex flex-col h-full">
+                <div class="card-header flex items-center">
+                    <i class="fas fa-hdd text-2xl mr-3 float-animation" style="color: #8B5CF6;"></i>
+                    <h3 class="text-white font-bold text-lg">스토리지</h3>
+                </div>
+                
+                <div class="space-y-2 text-sm flex-grow" style="color: #E0E0E0;">
+                    <div>
+                        <span class="spec-badge recommended-badge">OS/VM용</span>
+                        <p class="ml-1 mt-1"><span class="highlight-text">SSD 필수</span> (최소 256GB, NVMe SSD 권장)</p>
+                    </div>
+                    <div>
+                        <span class="spec-badge optional-badge">NAS용</span>
+                        <p class="ml-1 mt-1">대용량 HDD 또는 SSD (용도/예산에 맞게 선택)</p>
+                    </div>
+                    <div>
+                        <span class="spec-badge critical-badge">ZFS/Ceph 사용 시</span>
+                        <p class="ml-1 mt-1"><span class="highlight-text">하드웨어 RAID 컨트롤러 대신 HBA 모드</span> 필수</p>
+                    </div>
+                    <div class="text-xs mt-1 p-2 rounded-lg border" style="color: #FFEB3B; background: rgba(43, 43, 43, 0.4); border-color: rgba(0, 206, 209, 0.7);">
+                        <i class="fas fa-exclamation-triangle mr-1"></i>
+                        주의: ZFS on ZFS(중첩 구성) 피해야 함 - 심각한 성능 저하 발생
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Network Card Section -->
+            <div class="custom-card p-4 flex flex-col h-full">
+                <div class="card-header flex items-center">
+                    <i class="fas fa-network-wired text-2xl mr-3 float-animation" style="color: #FFD700;"></i>
+                    <h3 class="text-white font-bold text-lg">네트워크 카드 (NIC)</h3>
+                </div>
+                
+                <div class="space-y-3 text-sm flex-grow" style="color: #E0E0E0;">
+                    <div>
+                        <span class="spec-badge critical-badge">최소</span>
+                        <p class="ml-1 mt-1">1개의 네트워크 카드</p>
+                    </div>
+                    <div>
+                        <span class="spec-badge recommended-badge">VM/NAS 운영 시</span>
+                        <p class="ml-1 mt-1">여러 NIC로 관리용, VM용, NAS용 <span class="highlight-text">네트워크 분리 권장</span></p>
+                    </div>
+                    <div>
+                        <span class="spec-badge optional-badge">고급 설정</span>
+                        <p class="ml-1 mt-1">이중화된 멀티 기가빗(2.5/5/10Gbps) NIC 고려</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- VM + NAS Server Example -->
+        <div class="custom-card p-4 mb-2">
+            <div class="card-header flex items-center mb-2">
+                <i class="fas fa-server text-2xl mr-3" style="color: #FF6B6B;"></i>
+                <h3 class="text-white font-bold text-lg">예시 사양: VM + NAS 겸용 서버</h3>
+            </div>
+            
+            <div class="p-3 rounded-lg border" style="background: rgba(43, 43, 43, 0.4); border-color: rgba(0, 206, 209, 0.7);">
+                <div class="grid grid-cols-4 gap-2 text-sm">
+                    <div class="text-center">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2" style="background: linear-gradient(to right, #00CED1, #40E0D0);">
+                            <i class="fas fa-microchip text-white"></i>
+                        </div>
+                        <h4 class="font-medium" style="color: #00CED1;">CPU</h4>
+                        <p class="text-white text-xs">8코어 이상</p>
+                        <p class="text-xs" style="color: #E0E0E0;">Intel VT-x / AMD-V 지원</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2" style="background: linear-gradient(to right, #22C55E, #34D399);">
+                            <i class="fas fa-memory text-white"></i>
+                        </div>
+                        <h4 class="font-medium" style="color: #22C55E;">메모리</h4>
+                        <p class="text-white text-xs">최소 32GB ECC RAM</p>
+                        <p class="text-xs" style="color: #E0E0E0;">ZFS 사용 시 필수</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2" style="background: linear-gradient(to right, #8B5CF6, #A78BFA);">
+                            <i class="fas fa-hdd text-white"></i>
+                        </div>
+                        <h4 class="font-medium" style="color: #8B5CF6;">스토리지</h4>
+                        <p class="text-white text-xs">NVMe SSD + 대용량 HDD</p>
+                        <p class="text-xs" style="color: #E0E0E0;">HBA 컨트롤러 모드</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2" style="background: linear-gradient(to right, #FFD700, #FFA500);">
+                            <i class="fas fa-network-wired text-white"></i>
+                        </div>
+                        <h4 class="font-medium" style="color: #FFD700;">네트워크</h4>
+                        <p class="text-white text-xs">멀티 기가빗 NIC</p>
+                        <p class="text-xs" style="color: #E0E0E0;">관리용/데이터용 분리</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Tips -->
+        <div class="rounded-lg p-3 border mt-2" style="background: rgba(43, 43, 43, 0.3); border-color: rgba(0, 206, 209, 0.7);">
+            <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background: #00CED1;">
+                    <i class="fas fa-lightbulb text-xl" style="color: #FFD700;"></i>
+                </div>
+                <div>
+                    <h4 class="text-white font-medium">권장 구성 팁</h4>
+                    <p class="text-sm" style="color: #E0E0E0;">
+                        완벽한 시스템보다는 가능한 하드웨어로 시작해 <span class="highlight-text">점진적으로 확장</span>하세요. 
+                        RAM 증설과 SSD 교체가 <span class="highlight-text">성능 향상에 가장 효과적</span>입니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하드웨어 기본</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #2B2B2B;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: #00CED1;
+            border-radius: 2px;
+        }
+        .shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(0, 206, 209, 0.1);
+            border-radius: 50%;
+        }
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            bottom: -200px;
+            right: -100px;
+        }
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+        }
+        .custom-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        .custom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .card-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        .quote-box {
+            border-left: 4px solid #00CED1;
+            padding-left: 1rem;
+        }
+        .highlight-text {
+            color: #FFD700;
+            font-weight: 600;
+        }
+        .emphasis-text {
+            color: #00CED1;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col p-12" style="background-color: #2B2B2B;">
+        <div class="shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        
+        <h2 class="slide-title">하드웨어 기본</h2>
+        
+        <!-- 상단 문제 제기 섹션 -->
+        <div class="custom-card p-6 mb-8">
+            <div class="card-header">
+                <div class="flex items-center">
+                    <i class="fas fa-question-circle text-2xl mr-3 float-animation" style="color: #FFD700;"></i>
+                    <h3 class="text-white font-bold text-xl">하드웨어 지식, 정말 어려울까요?</h3>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <p class="mb-4" style="color: #E0E0E0;">
+                        <em>"하드웨어... 도대체 어떻게 공부해요?!"</em><br>
+                        <span class="text-sm" style="color: #A0A0A0;">- 시즌2 홈랩 스터디 이경준님</span>
+                    </p>
+                    
+                    <div class="quote-box italic mb-4" style="color: #E0E0E0;">
+                        스터디를 운영하면서, 생각보다 네트워크나 OS보다 하드웨어를 막연하게 여기시는 분들이 많았습니다!
+                    </div>
+                </div>
+                
+                <div class="rounded-lg p-4 border" style="background: rgba(0, 206, 209, 0.1); border-color: rgba(0, 206, 209, 0.3);">
+                    <h4 class="font-bold mb-2 text-white">컴퓨터공학과는 컴퓨터 조립하는 과가 아니라는 말처럼...</h4>
+                    <p class="text-sm" style="color: #E0E0E0;">
+                        많은 재학생/졸업생마저도 하드웨어에 대한 관심 및 지식 없이 바로 시스템을 조립하는 것은 어려울 수 있습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 메인 메시지 섹션 -->
+        <div class="custom-card p-8 mb-8">
+            <div class="text-center">
+                <div class="flex justify-center items-center space-x-6 mb-6">
+                    <i class="fas fa-desktop text-4xl" style="color: #6B7280;"></i>
+                    <i class="fas fa-equals text-2xl" style="color: #00CED1;"></i>
+                    <i class="fas fa-server text-4xl" style="color: #00CED1;"></i>
+                </div>
+                
+                <h3 class="text-2xl font-bold mb-4" style="color: #FFFFFF;">
+                    사실 홈서버 구축은, <span class="emphasis-text">일반 컴퓨터 조립이랑 동일</span>합니다.
+                </h3>
+                
+                <p class="text-lg" style="color: #E0E0E0;">
+                    조금 더 <span class="highlight-text">전기에 신경</span>써야 하고, 
+                    조금 더 <span class="highlight-text">확장성에 신경</span>써야 하는 것만 추가된 느낌이랄까요
+                </p>
+            </div>
+        </div>
+        
+        <!-- 차이점 섹션 -->
+        <div class="grid grid-cols-2 gap-6 mb-8">
+            <div class="custom-card p-6">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-bolt text-2xl mr-3" style="color: #FFD700;"></i>
+                    <h4 class="text-white font-bold text-lg">전력 관리</h4>
+                </div>
+                <ul class="space-y-2" style="color: #E0E0E0;">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-2" style="color: #22C55E;"></i>
+                        <span>24시간 운영을 위한 안정적인 전원 공급</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-2" style="color: #22C55E;"></i>
+                        <span>저전력 구성으로 전기료 절약</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-2" style="color: #22C55E;"></i>
+                        <span>UPS 연결로 정전 대비</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="custom-card p-6">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-expand-arrows-alt text-2xl mr-3" style="color: #00CED1;"></i>
+                    <h4 class="text-white font-bold text-lg">확장성 고려</h4>
+                </div>
+                <ul class="space-y-2" style="color: #E0E0E0;">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-2" style="color: #22C55E;"></i>
+                        <span>여러 드라이브 베이 확보</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-2" style="color: #22C55E;"></i>
+                        <span>충분한 메모리 슬롯과 PCIe 확장</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle mt-1 mr-2" style="color: #22C55E;"></i>
+                        <span>향후 업그레이드 가능성</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 마무리 메시지 -->
+        <div class="rounded-lg p-4 flex items-center border" style="background-color: rgba(0, 206, 209, 0.1); border-color: rgba(0, 206, 209, 0.3);">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center mr-4 float-animation" style="background: #00CED1;">
+                <i class="fas fa-lightbulb text-xl" style="color: #FFD700;"></i>
+            </div>
+            <p style="color: #E0E0E0;">
+                그렇다면 홈서버 구축을 위해 <span class="text-white font-semibold">어떤 하드웨어를 선택</span>해야 할까요?
+            </p>
+        </div>
+    </div>
+</body>
+</html>
