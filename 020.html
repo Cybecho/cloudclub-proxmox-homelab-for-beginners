@@ -17,7 +17,7 @@
         }
         .slide-container {
             width: 1280px;
-            min-height: 600px; /* 세로 길이 조정 */
+            min-height: 600px;
             margin: 0 auto;
             position: relative;
             overflow: hidden;
@@ -99,7 +99,7 @@
             padding-left: 20px;
         }
         .category-section:last-child {
-            margin-bottom: 0; /* 마지막 카테고리 섹션의 하단 마진 제거 */
+            margin-bottom: 0;
         }
         .category-title {
             color: #40E0D0;
@@ -142,6 +142,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer;
         }
         .link-item:hover {
             background: rgba(0, 206, 209, 0.1);
@@ -196,30 +197,6 @@
             border-radius: 15px;
             border: 1px solid rgba(0, 206, 209, 0.2);
         }
-        /* "thanks-section" 관련 스타일은 필요 없으므로 주석 처리 또는 삭제 가능
-        .thanks-section {
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, rgba(0, 206, 209, 0.1) 0%, rgba(64, 224, 208, 0.1) 100%);
-            border-radius: 15px;
-            margin-top: 20px;
-        }
-        .thanks-section i {
-            color: #00CED1;
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-        .thanks-section h3 {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .thanks-section p {
-            color: #E0E0E0;
-            font-size: 1rem;
-        }
-        */
         .highlight-text {
             color: #40E0D0;
             font-weight: 600;
@@ -267,7 +244,7 @@
                         Proxmox 소개 & 설치 가이드
                     </div>
                     <div class="link-grid">
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://enix.io/en/blog/proxmox-datacenter-manager/', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -277,7 +254,7 @@
                             </div>
                             <span class="country-tag tag-overseas">해외</span>
                         </div>
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://tuxcare.com/ko/blog/what-is-proxmox/', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -287,7 +264,7 @@
                             </div>
                             <span class="country-tag tag-overseas">해외</span>
                         </div>
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://098.co.kr/category/opensource/proxmox-ve/', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -297,7 +274,7 @@
                             </div>
                             <span class="country-tag tag-domestic">국내</span>
                         </div>
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://ko.linux-terminal.com/?p=3267', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -318,7 +295,7 @@
                         블로그 & 커뮤니티
                     </div>
                     <div class="link-grid">
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://blog.naver.com/PostView.naver?blogId=thephum&logNo=223499749532&redirect=Dlog&widgetTypeCall=true&noTrackingCode=true&directAccess=false', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -328,7 +305,7 @@
                             </div>
                             <span class="country-tag tag-domestic">국내</span>
                         </div>
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://blog.naver.com/PostView.naver?blogId=thephum&logNo=223499919623&parentCategoryNo=&categoryNo=12&viewDate=&isShowPopularPosts=false&from=postView', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -338,7 +315,7 @@
                             </div>
                             <span class="country-tag tag-domestic">국내</span>
                         </div>
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://blog.naver.com/PostView.naver?blogId=thephum&logNo=223499993019&parentCategoryNo=&categoryNo=12&viewDate=&isShowPopularPosts=false&from=postView', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -348,7 +325,7 @@
                             </div>
                             <span class="country-tag tag-domestic">국내</span>
                         </div>
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://blog.oriang.net/78', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -358,7 +335,7 @@
                             </div>
                             <span class="country-tag tag-domestic">국내</span>
                         </div>
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://svrforum.com/svr/1078717', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -368,7 +345,7 @@
                             </div>
                             <span class="country-tag tag-domestic">국내</span>
                         </div>
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://blog.naver.com/PostView.naver?blogId=thephum&logNo=223499882871&parentCategoryNo=&categoryNo=12&viewDate=&isShowPopularPosts=false&from=postView', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -389,7 +366,7 @@
                         Homelab & 클러스터 구축
                     </div>
                     <div class="link-grid">
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://www.nijho.lt/post/homelab/', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -399,7 +376,7 @@
                             </div>
                             <span class="country-tag tag-overseas">해외</span>
                         </div>
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://www.plural.sh/blog/kubernetes-proxmox-guide/', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -409,7 +386,7 @@
                             </div>
                             <span class="country-tag tag-overseas">해외</span>
                         </div>
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://www.linkedin.com/pulse/building-proxmox-cluster-home-engineering-scalable-resilient-smith-tkgqc/', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-link"></i>
@@ -419,7 +396,7 @@
                             </div>
                             <span class="country-tag tag-overseas">해외</span>
                         </div>
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://youtu.be/LPY1YTiV1k4', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fab fa-youtube"></i>
@@ -429,7 +406,7 @@
                             </div>
                             <span class="country-tag tag-overseas">해외</span>
                         </div>
-                        <div class="link-item">
+                        <div class="link-item" onclick="window.open('https://www.perplexity.ai/search/proxmoxreul-jeanhaneun-balpyor-SqCJ7hCsR5eeh9luO5UVnA', '_blank')">
                             <div class="link-content">
                                 <div class="link-title">
                                     <i class="fas fa-search"></i>
@@ -442,8 +419,7 @@
                     </div>
                 </div>
             </div>
-            
-            </div>
+        </div>
     </div>
 </body>
 </html>
